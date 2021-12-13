@@ -42,13 +42,25 @@ export const noTextComponent: Rule.RuleModule = {
             // visitor functions for different types of nodes
 
             JSXElement(node: any) {
-                const name = node.openingElement.name.name;
-                if (name === 'Text') {
+                const createReport = (foundComponent: string, replacementComponent: string) =>
                     context.report({
                         node,
+                        data: {
+                            foundComponent,
+                            replacementComponent,
+                        },
                         message:
-                            'The react-native Text component is not allowed. Please use the custom <Typography /> component.',
+                            'The react-native <{{ foundComponent }} /> component is not allowed. Please use the custom <{{ replacementComponent }} /> component.',
                     });
+
+                const isTextComponent = node.openingElement.name.name === 'Text';
+                const isAnimatedTextComponent =
+                    node.openingElement.name.object?.name === 'Animated' &&
+                    node.openingElement.name.property?.name === 'Text';
+                if (isTextComponent) {
+                    createReport('Text', 'Typography');
+                } else if (isAnimatedTextComponent) {
+                    createReport('Animated.Text', 'Typography.Animated');
                 }
             },
         };

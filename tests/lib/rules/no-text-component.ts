@@ -8,7 +8,7 @@
 // Requirements
 //------------------------------------------------------------------------------
 import { noTextComponent } from '../../../lib/rules/no-text-component';
-import eslint from 'eslint';
+import * as eslint from 'eslint';
 
 //------------------------------------------------------------------------------
 // Tests
@@ -24,18 +24,26 @@ const ruleTester = new eslint.RuleTester({
 });
 ruleTester.run('no-text-components', noTextComponent, {
     valid: [
-        {
-            code: 'const MyComponent = () => (<Typography>Some text</Typography>)',
-        },
+        { code: 'const MyComponent = () => (<Typography>Some text</Typography>)' },
+        { code: 'const MyComponent = () => (<Typography.Animated>Some text</Typography.Animated>)' },
     ],
-
     invalid: [
         {
             code: 'const MyComponent = () => (<Text>Some text</Text>)',
             errors: [
                 {
                     message:
-                        'The react-native Text component is not allowed. Please use the custom <Typography /> component.',
+                        'The react-native <Text /> component is not allowed. Please use the custom <Typography /> component.',
+                    type: 'JSXElement',
+                },
+            ],
+        },
+        {
+            code: 'const MyComponent = () => (<Animated.Text>Some text</Animated.Text>)',
+            errors: [
+                {
+                    message:
+                        'The react-native <Animated.Text /> component is not allowed. Please use the custom <Typography.Animated /> component.',
                     type: 'JSXElement',
                 },
             ],
