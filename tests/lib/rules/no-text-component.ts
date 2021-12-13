@@ -1,0 +1,44 @@
+/**
+ * @fileoverview We use our Typography component to display text, which for example preconfigures the font family and other properties. Therefore, this component should always be used instead of the text component.
+ * @author Daniel Reichhart <daniel@tokenstreet.com>
+ */
+'use strict';
+
+//------------------------------------------------------------------------------
+// Requirements
+//------------------------------------------------------------------------------
+import { noTextComponent } from '../../../lib/rules/no-text-component';
+import eslint from 'eslint';
+
+//------------------------------------------------------------------------------
+// Tests
+//------------------------------------------------------------------------------
+
+const ruleTester = new eslint.RuleTester({
+    parserOptions: {
+        ecmaVersion: 6,
+        ecmaFeatures: {
+            jsx: true,
+        },
+    },
+});
+ruleTester.run('no-text-components', noTextComponent, {
+    valid: [
+        {
+            code: 'const MyComponent = () => (<Typography>Some text</Typography>)',
+        },
+    ],
+
+    invalid: [
+        {
+            code: 'const MyComponent = () => (<Text>Some text</Text>)',
+            errors: [
+                {
+                    message:
+                        'The react-native Text component is not allowed. Please use the custom <Typography /> component.',
+                    type: 'JSXElement',
+                },
+            ],
+        },
+    ],
+});
