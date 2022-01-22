@@ -18,212 +18,97 @@ const ruleTester = new eslint.RuleTester();
 const tests = {
     valid: [
         {
-            code: `
-      const styles = StyleSheet.create({
-        name: {}
-      });
-      const Hello = React.createClass({
-        render: function() {
-          return <Text textStyle={styles.name}>Hello {this.props.name}</Text>;
-        }
-      });
-    `,
+            code:
+                'const styles = StyleSheet.create({ name: {} });\n' +
+                'const Hello = () => <Text style={styles.name}>Hello</Text>;\n',
         },
         {
-            code: `
-      const Hello = React.createClass({
-        render: function() {
-          return <Text textStyle={styles.name}>Hello {this.props.name}</Text>;
-        }
-      });
-      const styles = StyleSheet.create({
-        name: {}
-      });
-    `,
+            code:
+                'const Hello = () => <Text style={styles.name}>Hello</Text>;\n' +
+                'const styles = StyleSheet.create({ name: {} });\n',
         },
         {
-            code: `
-      const styles = StyleSheet.create({
-        name: {}
-      });
-      const Hello = React.createClass({
-        render: function() {
-          return <Text style={styles.name}>Hello {this.props.name}</Text>;
-        }
-      });
-    `,
+            code:
+                'const styles = StyleSheet.create({ name: {},  welcome: {} });\n' +
+                'const Hello = () => <Text style={styles.name}>Hello</Text>;\n' +
+                'const Welcome = () => <Text style={styles.welcome}>Welcome</Text>;\n',
         },
         {
-            code: `
-      const styles = StyleSheet.create({
-        name: {},
-        welcome: {}
-      });
-      const Hello = React.createClass({
-        render: function() {
-          return <Text style={styles.name}>Hello {this.props.name}</Text>;
-        }
-      });
-      const Welcome = React.createClass({
-        render: function() {
-          return <Text style={styles.welcome}>Welcome</Text>;
-        }
-      });
-    `,
+            code:
+                'const styles = StyleSheet.create({ name: {} });\n' +
+                'const Hello = ({ textStyle }) => <Text style={[styles.name, textStyle]}>Hello</Text>;\n',
         },
         {
-            code: `
-      const styles = StyleSheet.create({
-        text: {}
-      })
-      const Hello = React.createClass({
-        propTypes: {
-          textStyle: Text.propTypes.style,
-        },
-        render: function() {
-          return <Text style={[styles.text, textStyle]}>Hello {this.props.name}</Text>;
-        }
-      });
-    `,
+            code:
+                'const styles = StyleSheet.create({ name: {} });\n' +
+                'const styles2 = StyleSheet.create({ name: {} });\n' +
+                'const Hello = () => <Text style={[styles.name, styles2.name]}>Hello</Text>;\n',
         },
         {
-            code: `
-      const styles = StyleSheet.create({
-        text: {}
-      })
-      const styles2 = StyleSheet.create({
-        text: {}
-      })
-      const Hello = React.createClass({
-        propTypes: {
-          textStyle: Text.propTypes.style,
-        },
-        render: function() {
-          return (
-            <Text style={[styles.text, styles2.text, textStyle]}>
-             Hello {this.props.name}
-            </Text>
-           );
-        }
-      });
-    `,
+            code:
+                'const styles = StyleSheet.create({ name: {} });\n' +
+                'const Hello = ({condition = true}) => <Text style={condition && styles.name}>Hello</Text>;\n',
         },
         {
-            code: `
-      const styles = StyleSheet.create({
-        text: {}
-      });
-      const Hello = React.createClass({
-        getInitialState: function() {
-          return { condition: true, condition2: true }; 
-        },
-        render: function() {
-          return (
-            <Text
-              style={[
-                this.state.condition &&
-                this.state.condition2 &&
-                styles.text]}>
-              Hello {this.props.name}
-            </Text>
-          );
-        }
-      });
-    `,
+            code:
+                'const styles = StyleSheet.create({ name: {} });\n' +
+                'const Hello = ({condition = false}) => <Text style={condition && styles.name}>Hello</Text>;\n',
         },
         {
-            code: `
-      const styles = StyleSheet.create({
-        text: {},
-        text2: {},
-      });
-      const Hello = React.createClass({
-        getInitialState: function() {
-          return { condition: true }; 
-        },
-        render: function() {
-          return (
-            <Text style={[this.state.condition ? styles.text : styles.text2]}>
-              Hello {this.props.name}
-            </Text>
-          );
-        }
-      });
-    `,
+            code:
+                'const styles = StyleSheet.create({ name: {} });\n' +
+                'const Hello = ({condition = true}) => <Text style={[condition && styles.name]}>Hello</Text>;\n',
         },
         {
-            code: `
-      const styles = StyleSheet.create({
-          style1: {
-              color: 'red',
-          },
-          style2: {
-              color: 'blue',
-          }
-      });
-      export default class MyComponent extends Component {
-          static propTypes = {
-              isDanger: PropTypes.bool
-          };
-          render() {
-              return <View style={this.props.isDanger ? styles.style1 : styles.style2} />;
-          }
-      }
-    `,
+            code:
+                'const styles = StyleSheet.create({ name: {} });\n' +
+                'const Hello = ({condition = false}) => <Text style={[condition && styles.name]}>Hello</Text>;\n',
         },
         {
-            code: `
-      const styles = StyleSheet.create({
-        text: {}
-      })
-    `,
+            code:
+                'const styles = StyleSheet.create({ name: {}, welcome: {} });\n' +
+                'const Hello = ({ condition = true }) => <Text style={condition ? styles.name : styles.welcome}>Hello</Text>;\n',
         },
         {
-            code: `
-      const Hello = React.createClass({
-        getInitialState: function() {
-          return { condition: true }; 
-        },
-        render: function() {
-          const myStyle = this.state.condition ? styles.text : styles.text2;
-          return (
-              <Text style={myStyle}>
-                  Hello {this.props.name}
-              </Text>
-          );
-        }
-      });
-      const styles = StyleSheet.create({
-        text: {},
-        text2: {},
-      });
-    `,
+            code:
+                'const styles = StyleSheet.create({ name: {}, welcome: {} });\n' +
+                'const Hello = ({ condition = true }) => <Text style={[condition ? styles.name : styles.welcome]}>Hello</Text>;\n',
         },
         {
-            code: `
-      const additionalStyles = {};
-      const styles = StyleSheet.create({
-        name: {},
-        ...additionalStyles
-      });
-      const Hello = React.createClass({
-        render: function() {
-          return <Text textStyle={styles.name}>Hello {this.props.name}</Text>;
-        }
-      });
-    `,
+            code:
+                'const styles = StyleSheet.create({ name: {} });\n' +
+                'const Hello = React.createClass({ render: () => <Text style={styles.name}>Hello</Text> });\n',
         },
         {
-            code: `
-      const styles = OtherStyleSheet.create({
-        name: {},
-      });
-      const Hello = React.createClass({
-        render: function() {
-          return <Text textStyle={styles.name}>Hello {this.props.name}</Text>;
-        }
-      });
-    `,
+            code:
+                'const styles = StyleSheet.create({ name: {} });\n' +
+                'class Hello extends Component {\n' +
+                '    render() {\n' +
+                '        return <Text style={styles.name}>Hello</Text>;\n' +
+                '    }\n' +
+                '}\n',
+        },
+        { code: 'const styles = StyleSheet.create({ name: {} });\n' },
+        {
+            code:
+                'const styles = StyleSheet.create({ name: {}, welcome: {} });\n' +
+                'const Hello = ({ condition = true }) => {\n' +
+                '    const myStyle = condition ? styles.name : styles.welcome;\n' +
+                '    return <Text style={myStyle}>Hello</Text>;\n' +
+                '};\n',
+        },
+
+        {
+            code:
+                'const additionalStyles = {};\n' +
+                'const styles = StyleSheet.create({ name: {}, ...additionalStyles });\n' +
+                'const Hello = () => <Text style={styles.name}>Hello</Text>;\n',
+        },
+
+        {
+            code:
+                'const styles = OtherStyleSheet.create({ name: {},  });\n' +
+                'const Hello = () => <Text style={styles.name}>Hello</Text>;\n',
         },
     ],
 
