@@ -145,7 +145,7 @@ ruleTester.run('no-unused-styles', noUnusedStyles, {
                 "Hello.displayName = 'Hello';\n" +
                 'const styles = StyleSheet.create({ name: {} });\n',
         },
-        { name: 'Only the style sheet', code: 'const styles = StyleSheet.create({ name: {} });\n' },
+
         {
             name: 'Style object variable',
             code:
@@ -328,6 +328,25 @@ ruleTester.run('no-unused-styles', noUnusedStyles, {
                 'const styles = EStyleSheet.create({ name: {}, welcome: {} });\n' +
                 'const Hello = () => <Text style={styles.name}>Hello</Text>;  \n',
             errors: [{ message: 'Unused style detected: styles.welcome' }],
+        },
+        {
+            name: 'Only the style sheet',
+            code: 'const styles = StyleSheet.create({ name: {} });\n',
+            errors: [{ message: 'Unused style detected: styles.name' }],
+        },
+        {
+            name: 'Similar style sheet in different scopes',
+            code:
+                'const scope1 = () => {\n' +
+                '    const Hello = () => <Text style={styles.name}>Hello</Text>;\n' +
+                '    const styles = StyleSheet.create({ name: {} });\n' +
+                '};\n' +
+                '\n' +
+                'const scope2 = () => {\n' +
+                '    const Hello = () => <Text style={styles.welcome}>Hello</Text>;\n' +
+                '    const styles = StyleSheet.create({ name: {}, welcome: {} });\n' +
+                '};\n',
+            errors: [{ message: 'Unused style detected: styles.name' }],
         },
     ],
 });
