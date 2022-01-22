@@ -35,6 +35,7 @@ export const noUnusedStyles: Rule.RuleModule = {
         }
 
         return {
+            // Style refs
             MemberExpression: function (node: any) {
                 const styleRef = getPotentialStyleReferenceFromMemberExpression(node);
                 if (styleRef) {
@@ -42,6 +43,7 @@ export const noUnusedStyles: Rule.RuleModule = {
                 }
             },
 
+            // Stylesheets
             CallExpression: function (node: any) {
                 if (isStyleSheetDeclaration(node, context.settings)) {
                     const styleSheetName = getStyleSheetName(node);
