@@ -10,8 +10,6 @@
 import { noUnusedStyles } from '../../../lib/rules/no-unused-styles';
 import * as eslint from 'eslint';
 
-require('@babel/eslint-parser');
-
 // ------------------------------------------------------------------------------
 // Tests
 // ------------------------------------------------------------------------------
@@ -318,14 +316,13 @@ const tests = {
 };
 
 const config = {
-    parser: require.resolve('@babel/eslint-parser'),
     parserOptions: {
-        requireConfigFile: false,
-        babelOptions: {
-            parserOpts: {
-                plugins: [['estree', { classFeatures: true }], 'jsx'],
-            },
+        ecmaVersion: 13,
+        ecmaFeatures: {
+            jsx: true,
         },
+        sourceType: 'module',
+        allowImportExportEverywhere: true,
     },
     settings: {
         'react-native/style-sheet-object-names': ['StyleSheet', 'OtherStyleSheet'],
