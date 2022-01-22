@@ -45,54 +45,6 @@ const astHelpers = {
         return [];
     },
 
-    getStyleDeclarationsChunks: function (node: any) {
-        if (
-            node &&
-            node.type === 'CallExpression' &&
-            node.arguments &&
-            node.arguments[0] &&
-            node.arguments[0].properties
-        ) {
-            const { properties } = node.arguments[0];
-
-            const result = [];
-            let chunk = [];
-            for (let i = 0; i < properties.length; i += 1) {
-                const property = properties[i];
-                if (property.type === 'Property') {
-                    chunk.push(property);
-                } else if (chunk.length) {
-                    result.push(chunk);
-                    chunk = [];
-                }
-            }
-            if (chunk.length) {
-                result.push(chunk);
-            }
-            return result;
-        }
-
-        return [];
-    },
-
-    getPropertiesChunks: function (properties: any) {
-        const result = [];
-        let chunk = [];
-        for (let i = 0; i < properties.length; i += 1) {
-            const property = properties[i];
-            if (property.type === 'Property') {
-                chunk.push(property);
-            } else if (chunk.length) {
-                result.push(chunk);
-                chunk = [];
-            }
-        }
-        if (chunk.length) {
-            result.push(chunk);
-        }
-        return result;
-    },
-
     getExpressionIdentifier: function (node: any) {
         if (node) {
             switch (node.type) {
@@ -112,72 +64,6 @@ const astHelpers = {
         }
 
         return '';
-    },
-
-    getStylePropertyIdentifier: function (node: any) {
-        if (node && node.key) {
-            return astHelpers.getExpressionIdentifier(node.key);
-        }
-    },
-
-    isStyleAttribute: function (node: any) {
-        return Boolean(
-            node.type === 'JSXAttribute' &&
-                node.name &&
-                node.name.name &&
-                node.name.name.toLowerCase().includes('style')
-        );
-    },
-
-    collectStyleObjectExpressions: function (node: any, context: any) {
-        currentContent = context;
-        if (astHelpers.hasArrayOfStyleReferences(node)) {
-            const styleReferenceContainers = node.expression.elements;
-
-            return astHelpers.collectStyleObjectExpressionFromContainers(styleReferenceContainers);
-        }
-        if (node && node.expression) {
-            return astHelpers.getStyleObjectExpressionFromNode(node.expression);
-        }
-
-        return [];
-    },
-
-    collectColorLiterals: function (node: any, context: any) {
-        if (!node) {
-            return [];
-        }
-
-        currentContent = context;
-        if (astHelpers.hasArrayOfStyleReferences(node)) {
-            const styleReferenceContainers = node.expression.elements;
-
-            return astHelpers.collectColorLiteralsFromContainers(styleReferenceContainers);
-        }
-
-        if (node.type === 'ObjectExpression') {
-            return astHelpers.getColorLiteralsFromNode(node);
-        }
-
-        return astHelpers.getColorLiteralsFromNode(node.expression);
-    },
-
-    collectStyleObjectExpressionFromContainers: function (nodes: any) {
-        let objectExpressions: any = [];
-        nodes.forEach((node: any) => {
-            objectExpressions = objectExpressions.concat(astHelpers.getStyleObjectExpressionFromNode(node));
-        });
-
-        return objectExpressions;
-    },
-
-    collectColorLiteralsFromContainers: function (nodes: any) {
-        let colorLiterals: any = [];
-        nodes.forEach((node: any) => {
-            colorLiterals = colorLiterals.concat(astHelpers.getColorLiteralsFromNode(node));
-        });
-
-        return colorLiterals;
     },
 
     getStyleReferenceFromNode: function (node: any): any {
@@ -256,15 +142,6 @@ const astHelpers = {
             default:
                 return [];
         }
-    },
-
-    hasArrayOfStyleReferences: function (node: any) {
-        return (
-            node &&
-            Boolean(
-                node.type === 'JSXExpressionContainer' && node.expression && node.expression.type === 'ArrayExpression'
-            )
-        );
     },
 
     getStyleReferenceFromExpression: function (node: any) {
@@ -366,17 +243,6 @@ const astHelpers = {
         ) {
             return [node.object.name, node.property.name].join('.');
         }
-    },
-
-    isEitherShortHand: function (property1: any, property2: any) {
-        const shorthands = ['margin', 'padding', 'border', 'flex'];
-        if (shorthands.includes(property1)) {
-            return property2.startsWith(property1);
-        }
-        if (shorthands.includes(property2)) {
-            return property1.startsWith(property2);
-        }
-        return false;
     },
 };
 

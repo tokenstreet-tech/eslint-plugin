@@ -182,129 +182,16 @@ function componentRule(rule: any, context: any) {
             }
             return null;
         },
-
-        /**
-         * Get the related component from a node
-         *
-         * @param {ASTNode} node The AST node being checked (must be a MemberExpression).
-         * @returns {ASTNode} component node, null if we cannot find the component
-         */
-        getRelatedComponent: function (node: any) {
-            let currentNode = node;
-            let i;
-            let j;
-            let k;
-            let l;
-            // Get the component path
-            const componentPath = [];
-            while (currentNode) {
-                if (currentNode.property && currentNode.property.type === 'Identifier') {
-                    componentPath.push(currentNode.property.name);
-                }
-                if (currentNode.object && currentNode.object.type === 'Identifier') {
-                    componentPath.push(currentNode.object.name);
-                }
-                currentNode = currentNode.object;
-            }
-            componentPath.reverse();
-
-            // Find the variable in the current scope
-            const variableName = componentPath.shift();
-            if (!variableName) {
-                return null;
-            }
-            let variableInScope;
-            const { variables } = context.getScope();
-            for (i = 0, j = variables.length; i < j; i++) {
-                // eslint-disable-line no-plusplus
-                if (variables[i].name === variableName) {
-                    variableInScope = variables[i];
-                    break;
-                }
-            }
-            if (!variableInScope) {
-                return null;
-            }
-
-            // Find the variable declaration
-            let defInScope;
-            const { defs } = variableInScope;
-            for (i = 0, j = defs.length; i < j; i++) {
-                // eslint-disable-line no-plusplus
-                if (defs[i].type === 'ClassName' || defs[i].type === 'FunctionName' || defs[i].type === 'Variable') {
-                    defInScope = defs[i];
-                    break;
-                }
-            }
-            if (!defInScope) {
-                return null;
-            }
-            currentNode = defInScope.node.init || defInScope.node;
-
-            // Traverse the node properties to the component declaration
-            for (i = 0, j = componentPath.length; i < j; i++) {
-                // eslint-disable-line no-plusplus
-                if (!currentNode.properties) {
-                    continue; // eslint-disable-line no-continue
-                }
-                for (k = 0, l = currentNode.properties.length; k < l; k++) {
-                    // eslint-disable-line no-plusplus, max-len
-                    if (currentNode.properties[k].key.name === componentPath[i]) {
-                        currentNode = currentNode.properties[k];
-                        break;
-                    }
-                }
-                if (!currentNode) {
-                    return null;
-                }
-                currentNode = currentNode.value;
-            }
-
-            // Return the component
-            return components.get(currentNode);
-        },
     };
 
     // Component detection instructions
     const detectionInstructions = {
-        ClassDeclaration: function (node: any) {
-            if (!utils.isES6Component(node)) {
-                return;
-            }
-            components.add(node, 2);
-        },
-
-        ClassProperty: function () {
-            const node = utils.getParentComponent();
-            if (!node) {
-                return;
-            }
-            components.add(node, 2);
-        },
-
         ObjectExpression: function (node: any) {
             if (!utils.isES5Component(node)) {
                 return;
             }
             components.add(node, 2);
         },
-
-        FunctionExpression: function () {
-            const node = utils.getParentComponent();
-            if (!node) {
-                return;
-            }
-            components.add(node, 1);
-        },
-
-        FunctionDeclaration: function () {
-            const node = utils.getParentComponent();
-            if (!node) {
-                return;
-            }
-            components.add(node, 1);
-        },
-
         ArrowFunctionExpression: function () {
             const node = utils.getParentComponent();
             if (!node) {
@@ -316,16 +203,6 @@ function componentRule(rule: any, context: any) {
                 components.add(node, 1);
             }
         },
-
-        ThisExpression: function () {
-            const node = utils.getParentComponent();
-            if (!node || !/Function/.test(node.type)) {
-                return;
-            }
-            // Ban functions with a ThisExpression
-            components.add(node, 0);
-        },
-
         ReturnStatement: function (node: any) {
             if (!utils.isReturningJSX(node)) {
                 return;
