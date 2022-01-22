@@ -13,18 +13,32 @@ import { RuleTester } from 'eslint';
 // Tests
 // ------------------------------------------------------------------------------
 
-const ruleTester = new RuleTester();
-const tests = {
+const ruleTester = new RuleTester({
+    parserOptions: {
+        ecmaVersion: 13,
+        ecmaFeatures: {
+            jsx: true,
+        },
+        sourceType: 'module',
+        allowImportExportEverywhere: true,
+    },
+    settings: {
+        'react-native/style-sheet-object-names': ['StyleSheet', 'EStyleSheet'],
+    },
+});
+ruleTester.run('no-unused-styles', noUnusedStyles, {
     valid: [
         {
-            code:
-                'const styles = StyleSheet.create({ name: {} });\n' +
-                'const Hello = () => <Text style={styles.name}>Hello</Text>;\n',
-        },
-        {
+            name: 'Function component',
             code:
                 'const Hello = () => <Text style={styles.name}>Hello</Text>;\n' +
                 'const styles = StyleSheet.create({ name: {} });\n',
+        },
+        {
+            name: 'Function component, declared after the styles',
+            code:
+                'const styles = StyleSheet.create({ name: {} });\n' +
+                'const Hello = () => <Text style={styles.name}>Hello</Text>;\n',
         },
         {
             code:
@@ -104,7 +118,7 @@ const tests = {
         },
         {
             code:
-                'const styles = OtherStyleSheet.create({ name: {} });\n' +
+                'const styles = EStyleSheet.create({ name: {} });\n' +
                 'const Hello = () => <Text style={styles.name}>Hello</Text>;\n',
         },
     ],
@@ -195,23 +209,4 @@ const tests = {
             ],
         },
     ],
-};
-
-const config = {
-    parserOptions: {
-        ecmaVersion: 13,
-        ecmaFeatures: {
-            jsx: true,
-        },
-        sourceType: 'module',
-        allowImportExportEverywhere: true,
-    },
-    settings: {
-        'react-native/style-sheet-object-names': ['StyleSheet', 'OtherStyleSheet'],
-    },
-};
-
-tests.valid.forEach((t) => Object.assign(t, config));
-tests.invalid.forEach((t) => Object.assign(t, config));
-
-ruleTester.run('no-unused-styles', noUnusedStyles, tests);
+});

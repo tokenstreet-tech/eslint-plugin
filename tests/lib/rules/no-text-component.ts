@@ -13,7 +13,7 @@ import { RuleTester } from 'eslint';
 // Tests
 //------------------------------------------------------------------------------
 
-const ruleTester = new eslint.RuleTester({
+const ruleTester = new RuleTester({
     parserOptions: {
         ecmaVersion: 6,
         ecmaFeatures: {
