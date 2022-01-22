@@ -1,5 +1,5 @@
-const containsStyleSheetObject = (node: any, objectNames: any) => {
-    return Boolean(
+const containsStyleSheetObject = (node: any, objectNames: any) =>
+    Boolean(
         node &&
             node.type === 'CallExpression' &&
             node.callee &&
@@ -7,11 +7,9 @@ const containsStyleSheetObject = (node: any, objectNames: any) => {
             node.callee.object.name &&
             objectNames.includes(node.callee.object.name)
     );
-};
 
-const containsCreateCall = (node: any) => {
-    return Boolean(node && node.callee && node.callee.property && node.callee.property.name === 'create');
-};
+const containsCreateCall = (node: any) =>
+    Boolean(node && node.callee && node.callee.property && node.callee.property.name === 'create');
 
 export const isStyleSheetDeclaration = (node: any, settings: any) => {
     const getStyleSheetObjectNames = (settings: any) =>

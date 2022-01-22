@@ -130,7 +130,6 @@ function componentRule(rule: any, context: any) {
          * @returns {ASTNode} component node, null if we are not in a component
          */
         getParentES5Component: function () {
-            // eslint-disable-next-line react/destructuring-assignment
             let scope = context.getScope();
             while (scope) {
                 const node = scope.block && scope.block.parent && scope.block.parent.parent;
@@ -165,7 +164,6 @@ function componentRule(rule: any, context: any) {
          * @returns {ASTNode} component node, null if we are not in a component
          */
         getParentStatelessComponent: function () {
-            // eslint-disable-next-line react/destructuring-assignment
             let scope = context.getScope();
             while (scope) {
                 const node = scope.block;
@@ -186,12 +184,6 @@ function componentRule(rule: any, context: any) {
 
     // Component detection instructions
     const detectionInstructions = {
-        ObjectExpression: function (node: any) {
-            if (!utils.isES5Component(node)) {
-                return;
-            }
-            components.add(node, 2);
-        },
         ArrowFunctionExpression: function () {
             const node = utils.getParentComponent();
             if (!node) {
