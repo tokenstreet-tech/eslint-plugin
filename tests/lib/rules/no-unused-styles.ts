@@ -146,91 +146,49 @@ ruleTester.run('no-unused-styles', noUnusedStyles, {
                 'const Hello = () => <Text style={styles.name}>Hello</Text>;\n',
         },
     ],
-
     invalid: [
         {
-            code: `
-      const styles = StyleSheet.create({
-        text: {}
-      })
-      const Hello = React.createClass({
-        render: function() {
-          return <Text style={styles.b}>Hello {this.props.name}</Text>;
-        }
-      });
-    `,
-            errors: [
-                {
-                    message: 'Unused style detected: styles.text',
-                },
-            ],
+            name: 'Function component',
+            code:
+                'const styles = StyleSheet.create({ text: {}, welcome: {} });\n' +
+                'const Hello = () => <Text style={styles.text}>Hello</Text>;',
+            errors: [{ message: 'Unused style detected: styles.welcome' }],
         },
         {
-            code: `
-      const styles = StyleSheet.create({
-        foo: {},
-        bar: {},
-      })
-      class Foo extends React.Component {
-        render() {
-          return <View style={styles.foo}/>;
-        }
-      }
-    `,
-            errors: [
-                {
-                    message: 'Unused style detected: styles.bar',
-                },
-            ],
+            name: 'Wrong style sheet',
+            code:
+                'const styles = StyleSheet.create({ text: {} });\n' +
+                'const Hello = () => <Text style={styles.welcome}>Hello</Text>;',
+            errors: [{ message: 'Unused style detected: styles.text' }],
         },
         {
-            code: `
-      const styles = StyleSheet.create({
-        foo: {},
-        bar: {},
-      })
-      class Foo extends React.PureComponent {
-        render() {
-          return <View style={styles.foo}/>;
-        }
-      }
-    `,
-            errors: [
-                {
-                    message: 'Unused style detected: styles.bar',
-                },
-            ],
+            name: 'Class component syntax',
+            code:
+                'const styles = StyleSheet.create({ text: {}, welcome: {} });\n' +
+                'class Hello extends Component {\n' +
+                '    render() {\n' +
+                '        return <Text style={styles.text}>Hello</Text>;\n' +
+                '    }\n' +
+                '}',
+            errors: [{ message: 'Unused style detected: styles.welcome' }],
         },
         {
-            code: `
-      const styles = OtherStyleSheet.create({
-        foo: {},
-        bar: {},
-      })
-      class Foo extends React.PureComponent {
-        render() {
-          return <View style={styles.foo}/>;
-        }
-      }
-    `,
-            errors: [
-                {
-                    message: 'Unused style detected: styles.bar',
-                },
-            ],
+            name: 'Pure component syntax',
+            code:
+                'const styles = StyleSheet.create({ text: {}, welcome: {} });\n' +
+                'class Hello extends PureComponent {\n' +
+                '    render() {\n' +
+                '        return <Text style={styles.text}>Hello</Text>;\n' +
+                '    }\n' +
+                '}',
+            errors: [{ message: 'Unused style detected: styles.welcome' }],
         },
         {
-            code: `
-      const styles = StyleSheet.create({
-        text: {}
-      })
-      const Hello = () => (<><Text style={styles.b}>Hello</Text></>);
-    `,
-            errors: [
-                {
-                    message: 'Unused style detected: styles.text',
-                },
-            ],
+            name: 'Custom style sheet',
+            code:
+                'const styles = EStyleSheet.create({ name: {}, welcome: {} });\n' +
+                'const Hello = () => <Text style={styles.name}>Hello</Text>;\n',
+            errors: [{ message: 'Unused style detected: styles.welcome' }],
         },
     ],
 });
