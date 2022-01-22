@@ -3,7 +3,6 @@
  * @author Daniel Reichhart <daniel@tokenstreet.com>
  */
 
-import Components from '../util/Components';
 import { Rule } from 'eslint';
 
 /**
@@ -54,7 +53,7 @@ export const noUnusedStyles: Rule.RuleModule = {
     meta: {
         schema: [],
     },
-    create: Components.detect((context: Rule.RuleContext, components: any) => {
+    create: (context: Rule.RuleContext) => {
         const styleSheets = new StyleSheets();
         const styleReferences = new Set<string>();
 
@@ -145,14 +144,11 @@ export const noUnusedStyles: Rule.RuleModule = {
                 }
             },
             'Program:exit': () => {
-                const list = components.all();
-                if (Object.keys(list).length > 0) {
-                    styleReferences.forEach((reference) => {
-                        styleSheets.markAsUsed(reference);
-                    });
-                    reportUnusedStyles(styleSheets.getUnusedReferences());
-                }
+                styleReferences.forEach((reference) => {
+                    styleSheets.markAsUsed(reference);
+                });
+                reportUnusedStyles(styleSheets.getUnusedReferences());
             },
         };
-    }),
+    },
 };
