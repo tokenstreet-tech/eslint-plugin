@@ -122,6 +122,13 @@ ruleTester.run('no-unused-styles', noUnusedStyles, {
                 '    }\n' +
                 '}\n',
         },
+        {
+            name: 'Memoized function component',
+            code:
+                'const Hello = memo(() => <Text style={styles.name}>Hello</Text>);\n' +
+                "Hello.displayName = 'Hello';\n" +
+                'const styles = StyleSheet.create({ name: {} });\n',
+        },
         { name: 'Only the style sheet', code: 'const styles = StyleSheet.create({ name: {} });\n' },
         {
             name: 'Style object variable',
@@ -151,7 +158,7 @@ ruleTester.run('no-unused-styles', noUnusedStyles, {
             name: 'Function component',
             code:
                 'const styles = StyleSheet.create({ text: {}, welcome: {} });\n' +
-                'const Hello = () => <Text style={styles.text}>Hello</Text>;',
+                'const Hello = () => <Text style={styles.text}>Hello</Text>;\n',
             errors: [{ message: 'Unused style detected: styles.welcome' }],
         },
         {
@@ -181,6 +188,14 @@ ruleTester.run('no-unused-styles', noUnusedStyles, {
                 '        return <Text style={styles.text}>Hello</Text>;\n' +
                 '    }\n' +
                 '}',
+            errors: [{ message: 'Unused style detected: styles.welcome' }],
+        },
+        {
+            name: 'Memoized function component',
+            code:
+                'const styles = StyleSheet.create({ text: {}, welcome: {} });\n' +
+                'const Hello = memo(() => <Text style={styles.text}>Hello</Text>);\n' +
+                "Hello.displayName = 'Hello';\n",
             errors: [{ message: 'Unused style detected: styles.welcome' }],
         },
         {
