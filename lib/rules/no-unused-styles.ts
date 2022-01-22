@@ -5,7 +5,12 @@
 
 import { StyleSheets } from '../util/StyleSheet';
 import Components from '../util/Components';
-import { astHelpers } from '../util/astHelpers';
+import {
+    getPotentialStyleReferenceFromMemberExpression,
+    isStyleSheetDeclaration,
+    getStyleSheetName,
+    getStyleDeclarations,
+} from '../util/astHelpers';
 import { Rule } from 'eslint';
 
 export const noUnusedStyles: Rule.RuleModule = {
@@ -31,16 +36,16 @@ export const noUnusedStyles: Rule.RuleModule = {
 
         return {
             MemberExpression: function (node: any) {
-                const styleRef = astHelpers.getPotentialStyleReferenceFromMemberExpression(node);
+                const styleRef = getPotentialStyleReferenceFromMemberExpression(node);
                 if (styleRef) {
                     styleReferences.add(styleRef);
                 }
             },
 
             CallExpression: function (node: any) {
-                if (astHelpers.isStyleSheetDeclaration(node, context.settings)) {
-                    const styleSheetName = astHelpers.getStyleSheetName(node);
-                    const styles = astHelpers.getStyleDeclarations(node);
+                if (isStyleSheetDeclaration(node, context.settings)) {
+                    const styleSheetName = getStyleSheetName(node);
+                    const styles = getStyleDeclarations(node);
 
                     styleSheets.add(styleSheetName, styles);
                 }
