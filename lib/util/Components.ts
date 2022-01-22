@@ -1,6 +1,6 @@
 /**
  * @fileoverview Utility class and functions for React components detection
- * @author Yannick Croissant
+ * @author Daniel Reichhart <daniel@tokenstreet.com>
  */
 
 /**

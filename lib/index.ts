@@ -7,12 +7,14 @@
 // Requirements
 //------------------------------------------------------------------------------
 import { noTextComponent } from './rules/no-text-component';
+import { noUnusedStyles } from './rules/no-unused-styles';
 
 //------------------------------------------------------------------------------
 // Plugin Definition
 //------------------------------------------------------------------------------
 const allRules = {
     'no-text-component': noTextComponent,
+    'no-unused-styles': noUnusedStyles,
 };
 
 const configureAsError = (rules: typeof allRules) => {

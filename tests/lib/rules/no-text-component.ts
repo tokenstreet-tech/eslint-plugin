@@ -2,7 +2,6 @@
  * @fileoverview We use our Typography component to display text, which for example preconfigures the font family and other properties. Therefore, this component should always be used instead of the text component.
  * @author Daniel Reichhart <daniel@tokenstreet.com>
  */
-'use strict';
 
 //------------------------------------------------------------------------------
 // Requirements

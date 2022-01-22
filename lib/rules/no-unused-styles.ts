@@ -6,6 +6,7 @@
 import { StyleSheets } from '../util/StyleSheet';
 import Components from '../util/Components';
 import { astHelpers } from '../util/astHelpers';
+import { Rule } from 'eslint';
 
 const create = Components.detect((context: any, components: any) => {
     const styleSheets = new StyleSheets();
@@ -53,7 +54,7 @@ const create = Components.detect((context: any, components: any) => {
     };
 });
 
-module.exports = {
+export const noUnusedStyles: Rule.RuleModule = {
     meta: {
         schema: [],
     },
