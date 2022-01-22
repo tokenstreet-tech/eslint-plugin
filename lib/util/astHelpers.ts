@@ -1,9 +1,4 @@
-let currentContent: any;
-const getSourceCode = (node: any) => currentContent.getSourceCode(node).getText(node);
-
-const getStyleSheetObjectNames = (settings: any) => settings['react-native/style-sheet-object-names'] || ['StyleSheet'];
-
-const astHelpers = {
+export const astHelpers = {
     containsStyleSheetObject: function (node: any, objectNames: any) {
         return Boolean(
             node &&
@@ -15,11 +10,11 @@ const astHelpers = {
         );
     },
 
-    containsCreateCall: function (node: any) {
-        return Boolean(node && node.callee && node.callee.property && node.callee.property.name === 'create');
-    },
-
+    containsCreateCall: (node: any) =>
+        Boolean(node && node.callee && node.callee.property && node.callee.property.name === 'create'),
     isStyleSheetDeclaration: function (node: any, settings: any) {
+        const getStyleSheetObjectNames = (settings: any) =>
+            settings['react-native/style-sheet-object-names'] || ['StyleSheet'];
         const objectNames = getStyleSheetObjectNames(settings);
 
         return Boolean(astHelpers.containsStyleSheetObject(node, objectNames) && astHelpers.containsCreateCall(node));
@@ -174,7 +169,6 @@ const astHelpers = {
                     const innerNode = p.value;
                     if (innerNode.consequent.type === 'Literal' || innerNode.alternate.type === 'Literal') {
                         invalid = true;
-                        obj[p.key.name] = getSourceCode(innerNode);
                     }
                 } else if (
                     p.value.type === 'UnaryExpression' &&
@@ -209,7 +203,6 @@ const astHelpers = {
                         const innerNode = p.value;
                         if (innerNode.consequent.type === 'Literal' || innerNode.alternate.type === 'Literal') {
                             invalid = true;
-                            obj[p.key.name] = getSourceCode(innerNode);
                         }
                     }
                 }
@@ -245,5 +238,3 @@ const astHelpers = {
         }
     },
 };
-
-export { astHelpers };
