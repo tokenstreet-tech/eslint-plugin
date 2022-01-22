@@ -37,35 +37,6 @@ Components.prototype.add = function (node: any, confidence: any) {
 };
 
 /**
- * Find a component in the list using its node
- *
- * @param {ASTNode} node The AST node being searched.
- * @returns {Object} Component object, undefined if the component is not found
- */
-Components.prototype.get = function (node: any) {
-    const id = this.getId(node);
-    return this.list[id];
-};
-
-/**
- * Update a component in the list
- *
- * @param {ASTNode} node The AST node being updated.
- * @param {Object} props Additional properties to add to the component.
- */
-Components.prototype.set = function (node: any, props: any) {
-    let currentNode = node;
-    while (currentNode && !this.list[this.getId(currentNode)]) {
-        currentNode = node.parent;
-    }
-    if (!currentNode) {
-        return;
-    }
-    const id = this.getId(currentNode);
-    this.list[id] = { ...this.list[id], ...props };
-};
-
-/**
  * Return the components list
  * Components for which we are not confident are not returned
  *
@@ -79,22 +50,6 @@ Components.prototype.all = function () {
         }
     });
     return list;
-};
-
-/**
- * Return the length of the components list
- * Components for which we are not confident are not counted
- *
- * @returns {Number} Components list length
- */
-Components.prototype.length = function () {
-    let length = 0;
-    Object.keys(this.list).forEach((i) => {
-        if ({}.hasOwnProperty.call(this.list, i) && this.list[i].confidence >= 2) {
-            length += 1;
-        }
-    });
-    return length;
 };
 
 function componentRule(rule: any, context: any) {
