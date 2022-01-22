@@ -31,6 +31,22 @@ ruleTester.run('no-unused-styles', noUnusedStyles, {
         {
             name: 'Function component',
             code:
+                'function Hello() {\n' +
+                '    return <Text style={styles.name}>Hello</Text>;\n' +
+                '}\n' +
+                'const styles = StyleSheet.create({ name: {} });\n',
+        },
+        {
+            name: 'Anonymous function component',
+            code:
+                'const Hello = function () {\n' +
+                '    return <Text style={styles.name}>Hello</Text>;\n' +
+                '};\n' +
+                'const styles = StyleSheet.create({ name: {} });\n',
+        },
+        {
+            name: 'Arrow function component',
+            code:
                 'const Hello = () => <Text style={styles.name}>Hello</Text>;\n' +
                 'const styles = StyleSheet.create({ name: {} });\n',
         },
@@ -157,8 +173,26 @@ ruleTester.run('no-unused-styles', noUnusedStyles, {
         {
             name: 'Function component',
             code:
-                'const styles = StyleSheet.create({ text: {}, welcome: {} });\n' +
-                'const Hello = () => <Text style={styles.text}>Hello</Text>;\n',
+                'function Hello() {\n' +
+                '    return <Text style={styles.name}>Hello</Text>;\n' +
+                '}\n' +
+                'const styles = StyleSheet.create({ name: {}, welcome: {} });\n',
+            errors: [{ message: 'Unused style detected: styles.welcome' }],
+        },
+        {
+            name: 'Anonymous function component',
+            code:
+                'const Hello = function () {\n' +
+                '    return <Text style={styles.name}>Hello</Text>;\n' +
+                '};\n' +
+                'const styles = StyleSheet.create({ name: {}, welcome: {} });\n',
+            errors: [{ message: 'Unused style detected: styles.welcome' }],
+        },
+        {
+            name: 'Arrow function component',
+            code:
+                'const Hello = () => <Text style={styles.name}>Hello</Text>;\n' +
+                'const styles = StyleSheet.create({ name: {}, welcome: {} });\n',
             errors: [{ message: 'Unused style detected: styles.welcome' }],
         },
         {
