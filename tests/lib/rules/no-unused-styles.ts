@@ -1,20 +1,19 @@
 /**
- * @fileoverview No unused styles defined in javascript files
+ * @fileoverview Detects unused styles
  * @author Daniel Reichhart <daniel@tokenstreet.com>
  */
 
 // ------------------------------------------------------------------------------
 // Requirements
 // ------------------------------------------------------------------------------
-
 import { noUnusedStyles } from '../../../lib/rules/no-unused-styles';
-import * as eslint from 'eslint';
+import { RuleTester } from 'eslint';
 
 // ------------------------------------------------------------------------------
 // Tests
 // ------------------------------------------------------------------------------
 
-const ruleTester = new eslint.RuleTester();
+const ruleTester = new RuleTester();
 const tests = {
     valid: [
         {
@@ -97,17 +96,15 @@ const tests = {
                 '    return <Text style={myStyle}>Hello</Text>;\n' +
                 '};\n',
         },
-
         {
             code:
                 'const additionalStyles = {};\n' +
                 'const styles = StyleSheet.create({ name: {}, ...additionalStyles });\n' +
                 'const Hello = () => <Text style={styles.name}>Hello</Text>;\n',
         },
-
         {
             code:
-                'const styles = OtherStyleSheet.create({ name: {},  });\n' +
+                'const styles = OtherStyleSheet.create({ name: {} });\n' +
                 'const Hello = () => <Text style={styles.name}>Hello</Text>;\n',
         },
     ],

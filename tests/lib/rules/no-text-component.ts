@@ -7,7 +7,7 @@
 // Requirements
 //------------------------------------------------------------------------------
 import { noTextComponent } from '../../../lib/rules/no-text-component';
-import * as eslint from 'eslint';
+import { RuleTester } from 'eslint';
 
 //------------------------------------------------------------------------------
 // Tests
