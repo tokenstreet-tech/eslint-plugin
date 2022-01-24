@@ -25,7 +25,7 @@
     },
     "dependencies": {},
     "devDependencies": {
-        "@types/eslint": "^8.4.0",
+        "@types/eslint": "^8.4.1",
         "@types/estree": "^0.0.50",
         "@types/mocha": "^9.1.0",
         "@types/node": "^17.0.10",
