@@ -16,7 +16,7 @@ export const noError: Rule.RuleModule = {
     meta: {
         type: 'suggestion', // `problem`, `suggestion`, or `layout`
         docs: {
-            description: "Forbid the use of all 'Error' classes.",
+            description: 'Forbid the use of all error classes.',
             category: undefined,
             recommended: true,
             url: undefined, // URL to the documentation page for this rule
