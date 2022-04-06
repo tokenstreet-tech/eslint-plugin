@@ -7,12 +7,14 @@
 // Requirements
 //------------------------------------------------------------------------------
 import { noTextComponent } from './rules/no-text-component';
+import { noThrow } from './rules/no-throw';
 
 //------------------------------------------------------------------------------
 // Plugin Definition
 //------------------------------------------------------------------------------
 const allRules = {
     'no-text-component': noTextComponent,
+    'no-throw': noThrow,
 };
 
 const configureAsError = (rules: typeof allRules) => {
