@@ -8,7 +8,7 @@
 // Requirements
 //------------------------------------------------------------------------------
 import { RuleTester } from 'eslint';
-import { noThrow } from '../../../lib/rules/no-throw';
+import { noError } from '../../../lib/rules/no-error';
 
 //------------------------------------------------------------------------------
 // Tests
@@ -23,18 +23,14 @@ const ruleTester = new RuleTester({
     },
 });
 const error: RuleTester.TestCaseError = {
-    message: "Unallowed use of 'throw'. Please use the 'ErrorHandler'",
+    message: "Unallowed use of the 'Error' class. Please use the 'ErrorHandler'",
     type: 'ThrowStatement',
 };
-ruleTester.run('no-throw', noThrow, {
-    valid: [],
+ruleTester.run('no-error', noError, {
+    valid: [{ code: 'new FooClass()' }, { code: "const Error = 'foo'" }],
     invalid: [
         {
-            code: "throw new Error('foo');",
-            errors: [error],
-        },
-        {
-            code: 'throw error;',
+            code: "new Error('foo');",
             errors: [error],
         },
     ],

@@ -8,12 +8,14 @@
 //------------------------------------------------------------------------------
 import { noTextComponent } from './rules/no-text-component';
 import { noThrow } from './rules/no-throw';
+import { noError } from './rules/no-error';
 
 //------------------------------------------------------------------------------
 // Plugin Definition
 //------------------------------------------------------------------------------
 const allRules = {
     'no-text-component': noTextComponent,
+    'no-error': noError,
     'no-throw': noThrow,
 };
 
