@@ -22,11 +22,12 @@ const ruleTester = new RuleTester({
         },
     },
 });
-const error = {
-    ruleId: 'no-throw',
-    message: 'Unallowed use of `throw`',
+const error: RuleTester.TestCaseError = {
+    message: "Unallowed use of 'throw'. Please use the 'ErrorHandler'",
+    type: 'ThrowStatement',
 };
 ruleTester.run('no-throw', noThrow, {
+    valid: [],
     invalid: [
         {
             code: "new Error('foo');",
