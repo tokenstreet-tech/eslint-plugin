@@ -23,15 +23,19 @@ const ruleTester = new RuleTester({
     },
 });
 const error: RuleTester.TestCaseError = {
-    message: "Unallowed use of the 'Error' class. Please use the 'ErrorHandler'",
-    type: 'ThrowStatement',
+    message: "Unallowed use of a error class. Please use the 'ErrorHandler'",
+    type: 'NewExpression',
 };
 ruleTester.run('no-error', noError, {
     valid: [{ code: 'new FooClass()' }, { code: "const Error = 'foo'" }],
     invalid: [
-        {
-            code: "new Error('foo');",
-            errors: [error],
-        },
+        { code: "new Error('foo');", errors: [error] },
+        { code: "new EvalError('foo');", errors: [error] },
+        { code: "new InternalError('foo');", errors: [error] },
+        { code: "new RangeError('foo');", errors: [error] },
+        { code: "new ReferenceError('foo');", errors: [error] },
+        { code: "new SyntaxError('foo');", errors: [error] },
+        { code: "new TypeError('foo');", errors: [error] },
+        { code: "new URIError('foo');", errors: [error] },
     ],
 });

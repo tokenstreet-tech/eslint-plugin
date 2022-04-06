@@ -42,12 +42,21 @@ export const noError: Rule.RuleModule = {
             // visitor functions for different types of nodes
 
             NewExpression(node: any) {
-                const errorClasses: Array<string> = ['Error'];
+                const errorClasses: Array<string> = [
+                    'Error',
+                    'EvalError',
+                    'InternalError',
+                    'RangeError',
+                    'ReferenceError',
+                    'SyntaxError',
+                    'TypeError',
+                    'URIError',
+                ];
                 const isErrorExpression = errorClasses.some((value) => value === node.callee.name);
                 if (isErrorExpression)
                     context.report({
                         node,
-                        message: "Unallowed use of the 'Error' class. Please use the 'ErrorHandler'",
+                        message: "Unallowed use of a error class. Please use the 'ErrorHandler'",
                     });
             },
         };
