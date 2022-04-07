@@ -37,5 +37,13 @@ ruleTester.run('no-error', noError, {
         { code: "new SyntaxError('foo');", errors: [error] },
         { code: "new TypeError('foo');", errors: [error] },
         { code: "new URIError('foo');", errors: [error] },
+        { code: "throw new Error('foo');", errors: [error] },
+        { code: "throw new EvalError('foo');", errors: [error] },
+        { code: "throw new InternalError('foo');", errors: [error] },
+        { code: "throw new RangeError('foo');", errors: [error] },
+        { code: "throw new ReferenceError('foo');", errors: [error] },
+        { code: "throw new SyntaxError('foo');", errors: [error] },
+        { code: "throw new TypeError('foo');", errors: [error] },
+        { code: "throw new URIError('foo');", errors: [error] },
     ],
 });
