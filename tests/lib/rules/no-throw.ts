@@ -26,7 +26,7 @@ const ruleTester = new RuleTester({
     },
 });
 const error: RuleTester.TestCaseError = {
-    message: "Unallowed use of 'throw'. Please use the 'ErrorHandler'",
+    message: "Unallowed use of 'throw'. Please use the 'ErrorHandler' instead.",
     type: 'ThrowStatement',
 };
 ruleTester.run('no-throw', noThrow, {

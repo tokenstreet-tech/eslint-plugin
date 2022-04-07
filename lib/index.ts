@@ -9,14 +9,16 @@
 import { noTextComponent } from './rules/no-text-component';
 import { noThrow } from './rules/no-throw';
 import { noError } from './rules/no-error';
+import { noLoggerErrorMethod } from './rules/no-logger-error-method';
 
 //------------------------------------------------------------------------------
 // Plugin Definition
 //------------------------------------------------------------------------------
 const allRules = {
     'no-text-component': noTextComponent,
-    'no-error': noError,
     'no-throw': noThrow,
+    'no-error': noError,
+    'no-logger-error-method': noLoggerErrorMethod,
 };
 
 const configureAsError = (rules: typeof allRules) => {

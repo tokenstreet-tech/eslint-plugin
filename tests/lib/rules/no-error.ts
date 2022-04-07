@@ -26,7 +26,7 @@ const ruleTester = new RuleTester({
     },
 });
 const error: RuleTester.TestCaseError = {
-    message: "Unallowed use of a error class. Please use the 'ErrorHandler'",
+    message: "Unallowed use of a error class. Please use the 'ErrorHandler' instead.",
     type: 'NewExpression',
 };
 ruleTester.run('no-error', noError, {

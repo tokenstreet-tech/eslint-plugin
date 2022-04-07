@@ -1,8 +1,7 @@
 /**
  * @fileoverview
- * We use the ErrorHandler to handle warnings, errors and fatal errors,
- * which reacts appropriately and unified to the severity.
- * Therefore, this should always be used instead of throwing an error yourself.
+ * The logger methods "warn", "error" and "fatal" should not be used directly.
+ * Instead, one should call the ErrorHandler, which reacts appropriately to the status and calls the logger.
  *
  * @author Daniel Reichhart <daniel@tokenstreet.com>
  */
@@ -15,11 +14,11 @@ import { Rule } from 'eslint';
 /**
  * @type {import('eslint').Rule.RuleModule}
  */
-export const noThrow: Rule.RuleModule = {
+export const noLoggerErrorMethod: Rule.RuleModule = {
     meta: {
         type: 'suggestion', // `problem`, `suggestion`, or `layout`
         docs: {
-            description: "Forbid the use of 'throw'.",
+            description: 'Forbid the use of logger error methods.',
             category: undefined,
             recommended: true,
             url: undefined, // URL to the documentation page for this rule
@@ -44,11 +43,15 @@ export const noThrow: Rule.RuleModule = {
         return {
             // visitor functions for different types of nodes
 
-            ThrowStatement(node) {
-                context.report({
-                    node,
-                    message: "Unallowed use of 'throw'. Please use the 'ErrorHandler' instead.",
-                });
+            MemberExpression(node: any) {
+                const loggerErrorMethods: Array<string> = ['warn', 'error', 'fatal'];
+                const isLoggerErrorMethod =
+                    node.object.name === 'Logger' && loggerErrorMethods.some((value) => value === node.property.name);
+                if (isLoggerErrorMethod)
+                    context.report({
+                        node,
+                        message: "Unallowed use of a logger error method. Please use the 'ErrorHandler' instead.",
+                    });
             },
         };
     },

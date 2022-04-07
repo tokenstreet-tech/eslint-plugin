@@ -59,7 +59,7 @@ export const noError: Rule.RuleModule = {
                 if (isErrorExpression)
                     context.report({
                         node,
-                        message: "Unallowed use of a error class. Please use the 'ErrorHandler'",
+                        message: "Unallowed use of a error class. Please use the 'ErrorHandler' instead.",
                     });
             },
         };
