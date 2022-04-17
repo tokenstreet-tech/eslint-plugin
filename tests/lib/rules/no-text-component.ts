@@ -6,17 +6,21 @@
  *
  * @author Daniel Reichhart <daniel@tokenstreet.com>
  */
-'use strict';
 
-//------------------------------------------------------------------------------
-// Requirements
-//------------------------------------------------------------------------------
-import { noTextComponent } from '../../../lib/rules/no-text-component';
+/*
+ * ------------------------------------------------------------------------------
+ *  Requirements
+ * ------------------------------------------------------------------------------
+ */
 import * as eslint from 'eslint';
 
-//------------------------------------------------------------------------------
-// Tests
-//------------------------------------------------------------------------------
+import { noTextComponent } from '../../../lib/rules/no-text-component';
+
+/*
+ * ------------------------------------------------------------------------------
+ *  Tests
+ * ------------------------------------------------------------------------------
+ */
 
 const ruleTester = new eslint.RuleTester({
     parserOptions: {
@@ -28,8 +32,8 @@ const ruleTester = new eslint.RuleTester({
 });
 ruleTester.run('no-text-components', noTextComponent, {
     valid: [
-        { code: 'const MyComponent = () => (<Typography>Some text</Typography>)' },
-        { code: 'const MyComponent = () => (<Typography.Animated>Some text</Typography.Animated>)' },
+        'const MyComponent = () => (<Typography>Some text</Typography>)',
+        'const MyComponent = () => (<Typography.Animated>Some text</Typography.Animated>)',
     ],
     invalid: [
         {

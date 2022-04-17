@@ -7,15 +7,20 @@
  * @author Daniel Reichhart <daniel@tokenstreet.com>
  */
 
-//------------------------------------------------------------------------------
-// Requirements
-//------------------------------------------------------------------------------
+/*
+ * ------------------------------------------------------------------------------
+ *  Requirements
+ * ------------------------------------------------------------------------------
+ */
 import { RuleTester } from 'eslint';
+
 import { noError } from '../../../lib/rules/no-error';
 
-//------------------------------------------------------------------------------
-// Tests
-//------------------------------------------------------------------------------
+/*
+ * ------------------------------------------------------------------------------
+ *  Tests
+ * ------------------------------------------------------------------------------
+ */
 
 const ruleTester = new RuleTester({
     parserOptions: {
@@ -30,7 +35,7 @@ const error: RuleTester.TestCaseError = {
     type: 'NewExpression',
 };
 ruleTester.run('no-error', noError, {
-    valid: [{ code: 'new FooClass()' }, { code: "const Error = 'foo'" }],
+    valid: ['new FooClass()', "const Error = 'foo'"],
     invalid: [
         { code: "new Error('foo');", errors: [error] },
         { code: "new EvalError('foo');", errors: [error] },

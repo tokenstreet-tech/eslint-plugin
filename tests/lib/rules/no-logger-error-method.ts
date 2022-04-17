@@ -6,15 +6,20 @@
  * @author Daniel Reichhart <daniel@tokenstreet.com>
  */
 
-//------------------------------------------------------------------------------
-// Requirements
-//------------------------------------------------------------------------------
+/*
+ * ------------------------------------------------------------------------------
+ *  Requirements
+ * ------------------------------------------------------------------------------
+ */
 import { RuleTester } from 'eslint';
+
 import { noLoggerErrorMethod } from '../../../lib/rules/no-logger-error-method';
 
-//------------------------------------------------------------------------------
-// Tests
-//------------------------------------------------------------------------------
+/*
+ * ------------------------------------------------------------------------------
+ *  Tests
+ * ------------------------------------------------------------------------------
+ */
 
 const ruleTester = new RuleTester({
     parserOptions: {
@@ -29,7 +34,7 @@ const error: RuleTester.TestCaseError = {
     type: 'MemberExpression',
 };
 ruleTester.run('no-logger-error-method', noLoggerErrorMethod, {
-    valid: [{ code: "Logger.debug('Logger.ts', 'message');" }, { code: "Logger.info('Logger.ts', 'message');" }],
+    valid: ["Logger.debug('Logger.ts', 'message');", "Logger.info('Logger.ts', 'message');"],
     invalid: [
         { code: "Logger.warn('Logger.ts', 'message');", errors: [error] },
         { code: "Logger.error('Logger.ts', 'message');", errors: [error] },
