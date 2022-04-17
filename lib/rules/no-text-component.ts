@@ -14,19 +14,6 @@ import type { Rule } from 'eslint';
  * @type {import('eslint').Rule.RuleModule}
  */
 export const noTextComponent: Rule.RuleModule = {
-    meta: {
-        type: 'suggestion', // `problem`, `suggestion`, or `layout`
-        docs: {
-            description:
-                'We use our Typography component to display text, which for example preconfigures the font family and other properties. Therefore, this component should always be used instead of the text component.',
-            category: undefined,
-            recommended: true,
-            url: undefined, // URL to the documentation page for this rule
-        },
-        fixable: undefined, // Or `code` or `whitespace`
-        schema: [], // Add a schema if the rule has options
-    },
-
     create(context: Rule.RuleContext) {
         // Variables should be defined here
 
@@ -50,13 +37,10 @@ export const noTextComponent: Rule.RuleModule = {
             JSXElement(node: any): void {
                 const createReport = (foundComponent: string, replacementComponent: string): any => {
                     context.report({
-                        node,
-                        data: {
-                            foundComponent,
-                            replacementComponent,
-                        },
+                        data: { foundComponent, replacementComponent },
                         message:
                             'The react-native <{{ foundComponent }} /> component is not allowed. Please use the custom <{{ replacementComponent }} /> component.',
+                        node,
                     });
                 };
 
@@ -71,5 +55,17 @@ export const noTextComponent: Rule.RuleModule = {
                 }
             },
         };
+    },
+    meta: {
+        docs: {
+            category: undefined,
+            description:
+                'We use our Typography component to display text, which for example preconfigures the font family and other properties. Therefore, this component should always be used instead of the text component.',
+            recommended: true,
+            url: undefined, // URL to the documentation page for this rule
+        },
+        fixable: undefined, // Or `code` or `whitespace`
+        schema: [], // Add a schema if the rule has options
+        type: 'suggestion', // `problem`, `suggestion`, or `layout`
     },
 };

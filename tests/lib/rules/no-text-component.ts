@@ -22,19 +22,8 @@ import { noTextComponent } from '../../../lib/rules/no-text-component';
  * ------------------------------------------------------------------------------
  */
 
-const ruleTester = new eslint.RuleTester({
-    parserOptions: {
-        ecmaVersion: 6,
-        ecmaFeatures: {
-            jsx: true,
-        },
-    },
-});
+const ruleTester = new eslint.RuleTester({ parserOptions: { ecmaFeatures: { jsx: true }, ecmaVersion: 6 } });
 ruleTester.run('no-text-components', noTextComponent, {
-    valid: [
-        'const MyComponent = () => (<Typography>Some text</Typography>)',
-        'const MyComponent = () => (<Typography.Animated>Some text</Typography.Animated>)',
-    ],
     invalid: [
         {
             code: 'const MyComponent = () => (<Text>Some text</Text>)',
@@ -56,5 +45,9 @@ ruleTester.run('no-text-components', noTextComponent, {
                 },
             ],
         },
+    ],
+    valid: [
+        'const MyComponent = () => (<Typography>Some text</Typography>)',
+        'const MyComponent = () => (<Typography.Animated>Some text</Typography.Animated>)',
     ],
 });

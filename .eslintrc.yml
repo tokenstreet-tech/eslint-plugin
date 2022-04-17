@@ -38,4 +38,3 @@ rules:
     line-comment-position: 0
     no-inline-comments: 0
     no-undefined: 0
-    sort-keys: 0

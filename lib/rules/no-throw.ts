@@ -18,18 +18,6 @@ import type { Rule } from 'eslint';
  * @type {import('eslint').Rule.RuleModule}
  */
 export const noThrow: Rule.RuleModule = {
-    meta: {
-        type: 'suggestion', // `problem`, `suggestion`, or `layout`
-        docs: {
-            description: "Forbid the use of 'throw'.",
-            category: undefined,
-            recommended: true,
-            url: undefined, // URL to the documentation page for this rule
-        },
-        fixable: undefined, // Or `code` or `whitespace`
-        schema: [], // Add a schema if the rule has options
-    },
-
     create(context: Rule.RuleContext) {
         // Variables should be defined here
 
@@ -57,5 +45,16 @@ export const noThrow: Rule.RuleModule = {
                 });
             },
         };
+    },
+    meta: {
+        docs: {
+            category: undefined,
+            description: "Forbid the use of 'throw'.",
+            recommended: true,
+            url: undefined, // URL to the documentation page for this rule
+        },
+        fixable: undefined, // Or `code` or `whitespace`
+        schema: [], // Add a schema if the rule has options
+        type: 'suggestion', // `problem`, `suggestion`, or `layout`
     },
 };
