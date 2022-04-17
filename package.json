@@ -13,7 +13,7 @@
         "dist/**"
     ],
     "scripts": {
-        "build": "tsc",
+        "build": "tsc --project tsconfig.build.json",
         "typescript": "tsc --noEmit",
         "lint": "eslint .",
         "lint:fix": "yarn lint --fix",
