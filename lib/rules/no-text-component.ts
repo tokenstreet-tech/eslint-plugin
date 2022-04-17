@@ -45,9 +45,12 @@ export const noTextComponent: Rule.RuleModule = {
                     });
                 };
 
+                // @ts-expect-error JSXElement does not exist the estree type declarations
                 const isTextComponent = node.openingElement.name.name === 'Text';
                 const isAnimatedTextComponent =
+                    // @ts-expect-error JSXElement does not exist the estree type declarations
                     node.openingElement.name.object?.name === 'Animated' &&
+                    // @ts-expect-error JSXElement does not exist the estree type declarations
                     node.openingElement.name.property?.name === 'Text';
                 if (isTextComponent) {
                     createReport('Text', 'Typography');

@@ -43,6 +43,7 @@ export const noLoggerErrorMethod: Rule.RuleModule = {
                 if ('object' in node && 'name' in node.object && 'property' in node) {
                     const isLoggerErrorMethod =
                         node.object.name === 'Logger' &&
+                        // @ts-expect-error Name does not exist in the type declaration
                         loggerErrorMethods.some((value) => value === node.property.name);
                     if (isLoggerErrorMethod)
                         context.report({

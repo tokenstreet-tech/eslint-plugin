@@ -49,6 +49,7 @@ export const noError: Rule.RuleModule = {
                     'URIError',
                 ];
                 if ('callee' in node) {
+                    // @ts-expect-error Name does not exist in the type declaration
                     const isErrorExpression = errorClasses.some((value) => value === node.callee.name);
                     if (isErrorExpression)
                         context.report({
