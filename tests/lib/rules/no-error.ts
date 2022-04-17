@@ -7,30 +7,27 @@
  * @author Daniel Reichhart <daniel@tokenstreet.com>
  */
 
-//------------------------------------------------------------------------------
-// Requirements
-//------------------------------------------------------------------------------
+/*
+ * ------------------------------------------------------------------------------
+ *  Requirements
+ * ------------------------------------------------------------------------------
+ */
 import { RuleTester } from 'eslint';
+
 import { noError } from '../../../lib/rules/no-error';
 
-//------------------------------------------------------------------------------
-// Tests
-//------------------------------------------------------------------------------
+/*
+ * ------------------------------------------------------------------------------
+ *  Tests
+ * ------------------------------------------------------------------------------
+ */
 
-const ruleTester = new RuleTester({
-    parserOptions: {
-        ecmaVersion: 6,
-        ecmaFeatures: {
-            jsx: true,
-        },
-    },
-});
+const ruleTester = new RuleTester({ parserOptions: { ecmaFeatures: { jsx: true }, ecmaVersion: 6 } });
 const error: RuleTester.TestCaseError = {
     message: "Unallowed use of a error class. Please use the 'ErrorHandler' instead.",
     type: 'NewExpression',
 };
 ruleTester.run('no-error', noError, {
-    valid: [{ code: 'new FooClass()' }, { code: "const Error = 'foo'" }],
     invalid: [
         { code: "new Error('foo');", errors: [error] },
         { code: "new EvalError('foo');", errors: [error] },
@@ -49,4 +46,5 @@ ruleTester.run('no-error', noError, {
         { code: "throw new TypeError('foo');", errors: [error] },
         { code: "throw new URIError('foo');", errors: [error] },
     ],
+    valid: ['new FooClass()', "const Error = 'foo'"],
 });

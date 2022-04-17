@@ -6,33 +6,31 @@
  * @author Daniel Reichhart <daniel@tokenstreet.com>
  */
 
-//------------------------------------------------------------------------------
-// Requirements
-//------------------------------------------------------------------------------
+/*
+ * ------------------------------------------------------------------------------
+ *  Requirements
+ * ------------------------------------------------------------------------------
+ */
 import { RuleTester } from 'eslint';
+
 import { noLoggerErrorMethod } from '../../../lib/rules/no-logger-error-method';
 
-//------------------------------------------------------------------------------
-// Tests
-//------------------------------------------------------------------------------
+/*
+ * ------------------------------------------------------------------------------
+ *  Tests
+ * ------------------------------------------------------------------------------
+ */
 
-const ruleTester = new RuleTester({
-    parserOptions: {
-        ecmaVersion: 6,
-        ecmaFeatures: {
-            jsx: true,
-        },
-    },
-});
+const ruleTester = new RuleTester({ parserOptions: { ecmaFeatures: { jsx: true }, ecmaVersion: 6 } });
 const error: RuleTester.TestCaseError = {
     message: "Unallowed use of a logger error method. Please use the 'ErrorHandler' instead.",
     type: 'MemberExpression',
 };
 ruleTester.run('no-logger-error-method', noLoggerErrorMethod, {
-    valid: [{ code: "Logger.debug('Logger.ts', 'message');" }, { code: "Logger.info('Logger.ts', 'message');" }],
     invalid: [
         { code: "Logger.warn('Logger.ts', 'message');", errors: [error] },
         { code: "Logger.error('Logger.ts', 'message');", errors: [error] },
         { code: "Logger.fatal('Logger.ts', 'message');", errors: [error] },
     ],
+    valid: ["Logger.debug('Logger.ts', 'message');", "Logger.info('Logger.ts', 'message');"],
 });

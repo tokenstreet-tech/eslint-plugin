@@ -6,31 +6,24 @@
  *
  * @author Daniel Reichhart <daniel@tokenstreet.com>
  */
-'use strict';
 
-//------------------------------------------------------------------------------
-// Requirements
-//------------------------------------------------------------------------------
-import { noTextComponent } from '../../../lib/rules/no-text-component';
+/*
+ * ------------------------------------------------------------------------------
+ *  Requirements
+ * ------------------------------------------------------------------------------
+ */
 import * as eslint from 'eslint';
 
-//------------------------------------------------------------------------------
-// Tests
-//------------------------------------------------------------------------------
+import { noTextComponent } from '../../../lib/rules/no-text-component';
 
-const ruleTester = new eslint.RuleTester({
-    parserOptions: {
-        ecmaVersion: 6,
-        ecmaFeatures: {
-            jsx: true,
-        },
-    },
-});
+/*
+ * ------------------------------------------------------------------------------
+ *  Tests
+ * ------------------------------------------------------------------------------
+ */
+
+const ruleTester = new eslint.RuleTester({ parserOptions: { ecmaFeatures: { jsx: true }, ecmaVersion: 6 } });
 ruleTester.run('no-text-components', noTextComponent, {
-    valid: [
-        { code: 'const MyComponent = () => (<Typography>Some text</Typography>)' },
-        { code: 'const MyComponent = () => (<Typography.Animated>Some text</Typography.Animated>)' },
-    ],
     invalid: [
         {
             code: 'const MyComponent = () => (<Text>Some text</Text>)',
@@ -52,5 +45,9 @@ ruleTester.run('no-text-components', noTextComponent, {
                 },
             ],
         },
+    ],
+    valid: [
+        'const MyComponent = () => (<Typography>Some text</Typography>)',
+        'const MyComponent = () => (<Typography.Animated>Some text</Typography.Animated>)',
     ],
 });

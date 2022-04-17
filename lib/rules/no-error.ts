@@ -6,45 +6,38 @@
  *
  * @author Daniel Reichhart <daniel@tokenstreet.com>
  */
-import { Rule } from 'eslint';
+import type { Rule } from 'eslint';
+import type { Node } from 'estree';
 
-//------------------------------------------------------------------------------
-// Rule Definition
-//------------------------------------------------------------------------------
+/*
+ * ------------------------------------------------------------------------------
+ *  Rule Definition
+ * ------------------------------------------------------------------------------
+ */
 
 /**
  * @type {import('eslint').Rule.RuleModule}
  */
 export const noError: Rule.RuleModule = {
-    meta: {
-        type: 'suggestion', // `problem`, `suggestion`, or `layout`
-        docs: {
-            description: 'Forbid the use of all error classes.',
-            category: undefined,
-            recommended: true,
-            url: undefined, // URL to the documentation page for this rule
-        },
-        fixable: undefined, // Or `code` or `whitespace`
-        schema: [], // Add a schema if the rule has options
-    },
+    create: (context: Rule.RuleContext) =>
+        // Variables should be defined here
 
-    create(context: Rule.RuleContext) {
-        // variables should be defined here
+        /*
+         * ----------------------------------------------------------------------
+         *  Helpers
+         * ----------------------------------------------------------------------
+         */
 
-        //----------------------------------------------------------------------
-        // Helpers
-        //----------------------------------------------------------------------
+        // Any helper functions should go here or else delete this section
 
-        // any helper functions should go here or else delete this section
-
-        //----------------------------------------------------------------------
-        // Public
-        //----------------------------------------------------------------------
-
-        return {
-            // visitor functions for different types of nodes
-
-            NewExpression(node: any) {
+        /*
+         * ----------------------------------------------------------------------
+         *  Public
+         * ----------------------------------------------------------------------
+         */
+        ({
+            // Visitor functions for different types of nodes
+            NewExpression: (node: Node): void => {
                 const errorClasses: Array<string> = [
                     'Error',
                     'EvalError',
@@ -55,13 +48,26 @@ export const noError: Rule.RuleModule = {
                     'TypeError',
                     'URIError',
                 ];
-                const isErrorExpression = errorClasses.some((value) => value === node.callee.name);
-                if (isErrorExpression)
-                    context.report({
-                        node,
-                        message: "Unallowed use of a error class. Please use the 'ErrorHandler' instead.",
-                    });
+                if ('callee' in node) {
+                    // @ts-expect-error Name does not exist in the type declaration
+                    const isErrorExpression = errorClasses.some((value) => value === node.callee.name);
+                    if (isErrorExpression)
+                        context.report({
+                            message: "Unallowed use of a error class. Please use the 'ErrorHandler' instead.",
+                            node,
+                        });
+                }
             },
-        };
+        }),
+    meta: {
+        docs: {
+            category: undefined,
+            description: 'Forbid the use of all error classes.',
+            recommended: true,
+            url: undefined, // URL to the documentation page for this rule
+        },
+        fixable: undefined, // Or `code` or `whitespace`
+        schema: [], // Add a schema if the rule has options
+        type: 'suggestion', // `problem`, `suggestion`, or `layout`
     },
 };
