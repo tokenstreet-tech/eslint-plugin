@@ -38,4 +38,7 @@ Then configure the rules you want to use under the rules section.
 
 ## Supported Rules
 
--   Fill in provided rules here
+-   [`no-error`](docs/rules/no-error.md)
+-   [`no-logger-error-method`](docs/rules/no-logger-error-method.md)
+-   [`no-text-component`](docs/rules/no-text-component.md)
+-   [`no-throw`](docs/rules/no-throw.md)

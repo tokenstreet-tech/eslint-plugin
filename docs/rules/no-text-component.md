@@ -1,6 +1,7 @@
 # No Text component (no-text-component)
 
-We use our Typography component to display text, which for example preconfigures the font family and other properties.
+We use our Typography component to display text,
+which for example preconfigures the font family and other properties.
 Therefore, this component should always be used instead of the text component.
 
 ## Rule Details
@@ -9,12 +10,14 @@ Examples of **incorrect** code for this rule:
 
 ```ts
 const MyComponent = () => <Text>Some text</Text>;
+const MyComponent = () => <Animated.Text>Some text</Animated.Text>;
 ```
 
 Examples of **correct** code for this rule:
 
 ```ts
 const MyComponent = () => <Typography>Some text</Typography>;
+const MyComponent = () => <Typography.Animated>Some text</Typography.Animated>;
 ```
 
 ## When Not To Use It
