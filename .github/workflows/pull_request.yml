@@ -15,10 +15,10 @@ jobs:
         runs-on: [self-hosted, linux]
         strategy:
             matrix:
-                VALIDATION: ['TypeScript verification', ESLint, Test]
+                VALIDATION: [TypeScript, ESLint, Test]
                 include:
-                    - VALIDATION: 'TypeScript verification'
-                      COMMAND: 'ts:verify'
+                    - VALIDATION: TypeScript
+                      COMMAND: typescript
                     - VALIDATION: ESLint
                       COMMAND: lint
                     - VALIDATION: Test

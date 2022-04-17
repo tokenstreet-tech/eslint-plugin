@@ -14,7 +14,7 @@
     ],
     "scripts": {
         "build": "tsc",
-        "ts:verify": "tsc --noEmit",
+        "typescript": "tsc --noEmit",
         "lint": "eslint .",
         "test": "mocha -r ts-node/register 'tests/**/*.ts'",
         "prettier": "prettier --write . --ignore-path ./.prettierignore",
