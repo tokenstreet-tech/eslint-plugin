@@ -1,7 +1,7 @@
 /**
  * @fileoverview
- * The logger methods "warn", "error" and "fatal" should not be used directly.
- * Instead, one should call the ErrorHandler, which reacts appropriately to the status and calls the logger.
+ * The logger methods `warn`, `error` and `fatal` should not be used directly.
+ * Instead, one should call the `ErrorHandler`, which reacts appropriately to the status and calls the `Logger`.
  *
  * @author Daniel Reichhart <daniel@tokenstreet.com>
  */

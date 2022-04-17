@@ -1,8 +1,8 @@
 /**
  * @fileoverview
- * We use the ErrorHandler to handle warnings, errors and fatal errors,
+ * We use our `ErrorHandler` to handle warnings, errors and fatal errors,
  * which reacts appropriately and unified to the severity.
- * Therefore, this should always be used instead of throwing an error yourself.
+ * Therefore, this handler should always be used instead of throwing an error yourself.
  *
  * @author Daniel Reichhart <daniel@tokenstreet.com>
  */
@@ -46,5 +46,9 @@ ruleTester.run('no-error', noError, {
         { code: "throw new TypeError('foo');", errors: [error] },
         { code: "throw new URIError('foo');", errors: [error] },
     ],
-    valid: ['new FooClass()', "const Error = 'foo'"],
+    valid: [
+        'new FooClass()',
+        "const Error = 'foo'",
+        "ErrorHandler.error({ code: FrontendErrorCodeEnum.BAD_HEX_COLOR, filename: 'ColorUtil.ts' });",
+    ],
 });

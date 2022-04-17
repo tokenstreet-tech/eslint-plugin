@@ -26,7 +26,7 @@ const ruleTester = new eslint.RuleTester({ parserOptions: { ecmaFeatures: { jsx:
 ruleTester.run('no-text-components', noTextComponent, {
     invalid: [
         {
-            code: 'const MyComponent = () => (<Text>Some text</Text>)',
+            code: 'const MyComponent = () => <Text>Some text</Text>',
             errors: [
                 {
                     message:
@@ -36,7 +36,7 @@ ruleTester.run('no-text-components', noTextComponent, {
             ],
         },
         {
-            code: 'const MyComponent = () => (<Animated.Text>Some text</Animated.Text>)',
+            code: 'const MyComponent = () => <Animated.Text>Some text</Animated.Text>',
             errors: [
                 {
                     message:
@@ -47,7 +47,7 @@ ruleTester.run('no-text-components', noTextComponent, {
         },
     ],
     valid: [
-        'const MyComponent = () => (<Typography>Some text</Typography>)',
-        'const MyComponent = () => (<Typography.Animated>Some text</Typography.Animated>)',
+        'const MyComponent = () => <Typography>Some text</Typography>',
+        'const MyComponent = () => <Typography.Animated>Some text</Typography.Animated>',
     ],
 });
