@@ -22,5 +22,9 @@ overrides:
 rules:
     simple-import-sort/exports: 2 # Enabling the plugin simple-import-sort
     simple-import-sort/imports: 2 # Enabling the plugin simple-import-sort
+    '@typescript-eslint/array-type':
+        - 2
+        - default: 'generic'
+    one-var: 0 # Worsens the structure
 
     '@typescript-eslint/no-explicit-any': 0

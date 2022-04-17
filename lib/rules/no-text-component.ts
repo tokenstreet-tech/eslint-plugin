@@ -2,11 +2,13 @@
  * @fileoverview We use our Typography component to display text, which for example preconfigures the font family and other properties. Therefore, this component should always be used instead of the text component.
  * @author Daniel Reichhart <daniel@tokenstreet.com>
  */
-import { Rule } from 'eslint';
+import type { Rule } from 'eslint';
 
-//------------------------------------------------------------------------------
-// Rule Definition
-//------------------------------------------------------------------------------
+/*
+ * ------------------------------------------------------------------------------
+ *  Rule Definition
+ * ------------------------------------------------------------------------------
+ */
 
 /**
  * @type {import('eslint').Rule.RuleModule}
@@ -26,23 +28,27 @@ export const noTextComponent: Rule.RuleModule = {
     },
 
     create(context: Rule.RuleContext) {
-        // variables should be defined here
+        // Variables should be defined here
 
-        //----------------------------------------------------------------------
-        // Helpers
-        //----------------------------------------------------------------------
+        /*
+         * ----------------------------------------------------------------------
+         *  Helpers
+         * ----------------------------------------------------------------------
+         */
 
-        // any helper functions should go here or else delete this section
+        // Any helper functions should go here or else delete this section
 
-        //----------------------------------------------------------------------
-        // Public
-        //----------------------------------------------------------------------
+        /*
+         * ----------------------------------------------------------------------
+         *  Public
+         * ----------------------------------------------------------------------
+         */
 
         return {
-            // visitor functions for different types of nodes
+            // Visitor functions for different types of nodes
 
             JSXElement(node: any) {
-                const createReport = (foundComponent: string, replacementComponent: string) =>
+                const createReport = (foundComponent: string, replacementComponent: string) => {
                     context.report({
                         node,
                         data: {
@@ -52,6 +58,7 @@ export const noTextComponent: Rule.RuleModule = {
                         message:
                             'The react-native <{{ foundComponent }} /> component is not allowed. Please use the custom <{{ replacementComponent }} /> component.',
                     });
+                };
 
                 const isTextComponent = node.openingElement.name.name === 'Text';
                 const isAnimatedTextComponent =

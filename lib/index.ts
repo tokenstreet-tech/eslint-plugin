@@ -3,17 +3,21 @@
  * @author Daniel Reichhart <daniel@tokenstreet.com>
  */
 
-//------------------------------------------------------------------------------
-// Requirements
-//------------------------------------------------------------------------------
-import { noTextComponent } from './rules/no-text-component';
-import { noThrow } from './rules/no-throw';
+/*
+ * ------------------------------------------------------------------------------
+ *  Requirements
+ * ------------------------------------------------------------------------------
+ */
 import { noError } from './rules/no-error';
 import { noLoggerErrorMethod } from './rules/no-logger-error-method';
+import { noTextComponent } from './rules/no-text-component';
+import { noThrow } from './rules/no-throw';
 
-//------------------------------------------------------------------------------
-// Plugin Definition
-//------------------------------------------------------------------------------
+/*
+ * ------------------------------------------------------------------------------
+ *  Plugin Definition
+ * ------------------------------------------------------------------------------
+ */
 const allRules = {
     'no-text-component': noTextComponent,
     'no-throw': noThrow,
@@ -24,14 +28,14 @@ const allRules = {
 const configureAsError = (rules: typeof allRules) => {
     const result: Record<string, 2> = {};
     for (const key in rules) {
-        if (Object.prototype.hasOwnProperty.call(rules, key)) {
+        if (Object.hasOwn(rules, key)) {
             result[`@tokenstreet/${key}`] = 2;
         }
     }
     return result;
 };
 
-// import all rules in lib/rules
+// Import all rules in lib/rules
 module.exports = {
     rules: allRules,
     configs: {

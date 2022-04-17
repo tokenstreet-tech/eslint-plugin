@@ -6,11 +6,13 @@
  *
  * @author Daniel Reichhart <daniel@tokenstreet.com>
  */
-import { Rule } from 'eslint';
+import type { Rule } from 'eslint';
 
-//------------------------------------------------------------------------------
-// Rule Definition
-//------------------------------------------------------------------------------
+/*
+ * ------------------------------------------------------------------------------
+ *  Rule Definition
+ * ------------------------------------------------------------------------------
+ */
 
 /**
  * @type {import('eslint').Rule.RuleModule}
@@ -29,20 +31,24 @@ export const noThrow: Rule.RuleModule = {
     },
 
     create(context: Rule.RuleContext) {
-        // variables should be defined here
+        // Variables should be defined here
 
-        //----------------------------------------------------------------------
-        // Helpers
-        //----------------------------------------------------------------------
+        /*
+         * ----------------------------------------------------------------------
+         *  Helpers
+         * ----------------------------------------------------------------------
+         */
 
-        // any helper functions should go here or else delete this section
+        // Any helper functions should go here or else delete this section
 
-        //----------------------------------------------------------------------
-        // Public
-        //----------------------------------------------------------------------
+        /*
+         * ----------------------------------------------------------------------
+         *  Public
+         * ----------------------------------------------------------------------
+         */
 
         return {
-            // visitor functions for different types of nodes
+            // Visitor functions for different types of nodes
 
             ThrowStatement(node) {
                 context.report({
