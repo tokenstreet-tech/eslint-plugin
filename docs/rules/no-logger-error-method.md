@@ -1,7 +1,7 @@
 # No Logger Error Method (no-logger-error-method)
 
 The logger methods `warn`, `error` and `fatal` should not be used directly.
-Instead, one should call the ErrorHandler, which reacts appropriately to the status and calls the logger.
+Instead, one should call the `ErrorHandler`, which reacts appropriately to the status and calls the `Logger`.
 
 ## Rule Details
 
