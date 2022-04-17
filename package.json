@@ -16,6 +16,7 @@
         "build": "tsc",
         "typescript": "tsc --noEmit",
         "lint": "eslint .",
+        "lint:fix": "yarn lint --fix",
         "test": "mocha -r ts-node/register 'tests/**/*.ts'",
         "prettier": "prettier --write . --ignore-path ./.prettierignore",
         "prepare": "husky install"
