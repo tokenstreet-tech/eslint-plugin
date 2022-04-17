@@ -19,7 +19,7 @@ import type { Node } from 'estree';
  * @type {import('eslint').Rule.RuleModule}
  */
 export const noError: Rule.RuleModule = {
-    create(context: Rule.RuleContext) {
+    create: (context: Rule.RuleContext) =>
         // Variables should be defined here
 
         /*
@@ -36,10 +36,10 @@ export const noError: Rule.RuleModule = {
          * ----------------------------------------------------------------------
          */
 
-        return {
+        ({
             // Visitor functions for different types of nodes
 
-            NewExpression(node: Node): void {
+            NewExpression: (node: Node): void => {
                 const errorClasses: Array<string> = [
                     'Error',
                     'EvalError',
@@ -57,8 +57,7 @@ export const noError: Rule.RuleModule = {
                         node,
                     });
             },
-        };
-    },
+        }),
     meta: {
         docs: {
             category: undefined,

@@ -18,7 +18,7 @@ import type { Node } from 'estree';
  * @type {import('eslint').Rule.RuleModule}
  */
 export const noLoggerErrorMethod: Rule.RuleModule = {
-    create(context: Rule.RuleContext) {
+    create: (context: Rule.RuleContext) =>
         // Variables should be defined here
 
         /*
@@ -35,10 +35,10 @@ export const noLoggerErrorMethod: Rule.RuleModule = {
          * ----------------------------------------------------------------------
          */
 
-        return {
+        ({
             // Visitor functions for different types of nodes
 
-            MemberExpression(node: Node): void {
+            MemberExpression: (node: Node): void => {
                 const loggerErrorMethods: Array<string> = ['warn', 'error', 'fatal'];
                 const isLoggerErrorMethod =
                     node.object.name === 'Logger' && loggerErrorMethods.some((value) => value === node.property.name);
@@ -48,8 +48,7 @@ export const noLoggerErrorMethod: Rule.RuleModule = {
                         node,
                     });
             },
-        };
-    },
+        }),
     meta: {
         docs: {
             category: undefined,

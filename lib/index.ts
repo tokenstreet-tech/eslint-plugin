@@ -30,6 +30,7 @@ const allRules: Record<string, Rule.RuleModule> = {
 const configureAsError = (rules: Record<string, Rule.RuleModule>): Record<string, 2> => {
     const result: Record<string, 2> = {};
     for (const key in rules) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         if (Object.hasOwn(rules, key)) {
             result[`@tokenstreet/${key}`] = 2;
         }

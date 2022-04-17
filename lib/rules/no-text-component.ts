@@ -4,7 +4,6 @@
  */
 import type { Rule } from 'eslint';
 import type { Node } from 'estree';
-import type { DeepReadonly } from 'ts-essentials';
 
 /*
  * ------------------------------------------------------------------------------
@@ -16,7 +15,7 @@ import type { DeepReadonly } from 'ts-essentials';
  * @type {import('eslint').Rule.RuleModule}
  */
 export const noTextComponent: Rule.RuleModule = {
-    create(context: DeepReadonly<Rule.RuleContext>) {
+    create: (context: Rule.RuleContext) =>
         // Variables should be defined here
 
         /*
@@ -33,10 +32,10 @@ export const noTextComponent: Rule.RuleModule = {
          * ----------------------------------------------------------------------
          */
 
-        return {
+        ({
             // Visitor functions for different types of nodes
 
-            JSXElement(node: Node): void {
+            JSXElement: (node: Node): void => {
                 const createReport = (foundComponent: string, replacementComponent: string): void => {
                     context.report({
                         data: { foundComponent, replacementComponent },
@@ -56,8 +55,7 @@ export const noTextComponent: Rule.RuleModule = {
                     createReport('Animated.Text', 'Typography.Animated');
                 }
             },
-        };
-    },
+        }),
     meta: {
         docs: {
             category: undefined,

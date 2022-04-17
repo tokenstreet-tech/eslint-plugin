@@ -8,7 +8,6 @@
  */
 import type { Rule } from 'eslint';
 import type { Node } from 'estree';
-import type { DeepReadonly } from 'ts-essentials';
 
 /*
  * ------------------------------------------------------------------------------
@@ -20,7 +19,7 @@ import type { DeepReadonly } from 'ts-essentials';
  * @type {import('eslint').Rule.RuleModule}
  */
 export const noThrow: Rule.RuleModule = {
-    create(context: DeepReadonly<Rule.RuleContext>) {
+    create: (context: Rule.RuleContext) =>
         // Variables should be defined here
 
         /*
@@ -37,17 +36,16 @@ export const noThrow: Rule.RuleModule = {
          * ----------------------------------------------------------------------
          */
 
-        return {
+        ({
             // Visitor functions for different types of nodes
 
-            ThrowStatement(node: Node): void {
+            ThrowStatement: (node: Node): void => {
                 context.report({
                     message: "Unallowed use of 'throw'. Please use the 'ErrorHandler' instead.",
                     node,
                 });
             },
-        };
-    },
+        }),
     meta: {
         docs: {
             category: undefined,
