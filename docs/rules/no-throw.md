@@ -16,7 +16,7 @@ throw error;
 Examples of **correct** code for this rule:
 
 ```ts
-
+ErrorHandler.error({ code: FrontendErrorCodeEnum.BAD_HEX_COLOR, filename: 'ColorUtil.ts' });
 ```
 
 ## When Not To Use It

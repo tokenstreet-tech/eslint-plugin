@@ -32,6 +32,7 @@ Examples of **correct** code for this rule:
 ```ts
 new FooClass();
 const Error = 'foo';
+ErrorHandler.error({ code: FrontendErrorCodeEnum.BAD_HEX_COLOR, filename: 'ColorUtil.ts' });
 ```
 
 ## When Not To Use It

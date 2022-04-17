@@ -32,5 +32,5 @@ ruleTester.run('no-throw', noThrow, {
         { code: "throw new Error('foo');", errors: [error] },
         { code: 'throw error;', errors: [error] },
     ],
-    valid: [],
+    valid: ["ErrorHandler.error({ code: FrontendErrorCodeEnum.BAD_HEX_COLOR, filename: 'ColorUtil.ts' });"],
 });

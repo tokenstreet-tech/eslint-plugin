@@ -46,5 +46,9 @@ ruleTester.run('no-error', noError, {
         { code: "throw new TypeError('foo');", errors: [error] },
         { code: "throw new URIError('foo');", errors: [error] },
     ],
-    valid: ['new FooClass()', "const Error = 'foo'"],
+    valid: [
+        'new FooClass()',
+        "const Error = 'foo'",
+        "ErrorHandler.error({ code: FrontendErrorCodeEnum.BAD_HEX_COLOR, filename: 'ColorUtil.ts' });",
+    ],
 });
