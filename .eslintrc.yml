@@ -2,10 +2,12 @@ root: true
 parser: '@typescript-eslint/parser'
 plugins:
     - '@typescript-eslint'
+    - simple-import-sort
 extends:
-    - eslint:recommended
-    - plugin:@typescript-eslint/recommended
-    - plugin:eslint-plugin/recommended
+    - eslint:all
+    - plugin:@typescript-eslint/all
+    - plugin:eslint-plugin/all
+    - prettier
 env:
     node: true
     es6: true
@@ -15,4 +17,7 @@ overrides:
       env:
           mocha: true
 rules:
+    simple-import-sort/exports: 2 # Enabling the plugin simple-import-sort
+    simple-import-sort/imports: 2 # Enabling the plugin simple-import-sort
+
     '@typescript-eslint/no-explicit-any': 0
