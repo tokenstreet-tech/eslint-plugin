@@ -21,4 +21,6 @@ Examples of **correct** code for this rule:
 
 ## When Not To Use It
 
-Give a short description of when it would be appropriate to turn off this rule.
+For parts of the start-up process, for example our config.
+The `ErrorHandler` uses the config, and the config uses the `ErrorHandler`.
+This would create a recursive cycle.
