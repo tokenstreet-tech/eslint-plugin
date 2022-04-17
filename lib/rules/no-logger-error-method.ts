@@ -40,13 +40,16 @@ export const noLoggerErrorMethod: Rule.RuleModule = {
 
             MemberExpression: (node: Node): void => {
                 const loggerErrorMethods: Array<string> = ['warn', 'error', 'fatal'];
-                const isLoggerErrorMethod =
-                    node.object.name === 'Logger' && loggerErrorMethods.some((value) => value === node.property.name);
-                if (isLoggerErrorMethod)
-                    context.report({
-                        message: "Unallowed use of a logger error method. Please use the 'ErrorHandler' instead.",
-                        node,
-                    });
+                if ('object' in node && 'name' in node.object && 'property' in node) {
+                    const isLoggerErrorMethod =
+                        node.object.name === 'Logger' &&
+                        loggerErrorMethods.some((value) => value === node.property.name);
+                    if (isLoggerErrorMethod)
+                        context.report({
+                            message: "Unallowed use of a logger error method. Please use the 'ErrorHandler' instead.",
+                            node,
+                        });
+                }
             },
         }),
     meta: {
