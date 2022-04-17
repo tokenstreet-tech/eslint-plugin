@@ -8,13 +8,14 @@ The ESLint rule `no-restricted-imports` would make this rule only partially redu
 as it would only prohibit the `Text` component, but not `Animated.Text`.
 This is in the nature of this rule, as only the entire React Native `Animated` module can be imported.
 
-````yml
+```yml
 no-restricted-imports:
-  - 2
-  - name: react-native
-    importNames:
-      - Text
-    message: The react-native <Text /> component is not allowed. Please use the custom <Typography /> component.
+    - 2
+    - name: react-native
+      importNames:
+          - Text
+      message: The react-native <Text /> component is not allowed. Please use the custom <Typography /> component.
+```
 
 ## Rule Details
 
@@ -23,7 +24,7 @@ Examples of **incorrect** code for this rule:
 ```ts
 const MyComponent = () => <Text>Some text</Text>;
 const MyComponent = () => <Animated.Text>Some text</Animated.Text>;
-````
+```
 
 Examples of **correct** code for this rule:
 
