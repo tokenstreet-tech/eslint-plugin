@@ -3,42 +3,55 @@
  * @author Daniel Reichhart <daniel@tokenstreet.com>
  */
 
-//------------------------------------------------------------------------------
-// Requirements
-//------------------------------------------------------------------------------
+/*
+ * ------------------------------------------------------------------------------
+ *  Requirements
+ * ------------------------------------------------------------------------------
+ */
+import type { Rule } from 'eslint';
+
+import { noError } from './rules/no-error';
+import { noLoggerErrorMethod } from './rules/no-logger-error-method';
 import { noTextComponent } from './rules/no-text-component';
+import { noThrow } from './rules/no-throw';
 import { noUnusedStyles } from './rules/no-unused-styles';
 
-//------------------------------------------------------------------------------
-// Plugin Definition
-//------------------------------------------------------------------------------
-const allRules = {
+/*
+ * ------------------------------------------------------------------------------
+ *  Plugin Definition
+ * ------------------------------------------------------------------------------
+ */
+const allRules: Record<string, Rule.RuleModule> = {
+    'no-error': noError,
+    'no-logger-error-method': noLoggerErrorMethod,
     'no-text-component': noTextComponent,
+    'no-throw': noThrow,
     'no-unused-styles': noUnusedStyles,
 };
 
-const configureAsError = (rules: typeof allRules) => {
+const configureAsError = (rules: Record<string, Rule.RuleModule>): Record<string, 2> => {
     const result: Record<string, 2> = {};
     for (const key in rules) {
-        if (Object.prototype.hasOwnProperty.call(rules, key)) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+        if (Object.hasOwn(rules, key)) {
             result[`@tokenstreet/${key}`] = 2;
         }
     }
     return result;
 };
 
-// import all rules in lib/rules
+// Import all rules in lib/rules
 module.exports = {
-    rules: allRules,
     configs: {
         all: {
-            plugins: ['@tokenstreet'],
             parserOptions: {
                 ecmaFeatures: {
                     jsx: true,
                 },
             },
+            plugins: ['@tokenstreet'],
             rules: configureAsError(allRules),
         },
     },
+    rules: allRules,
 };

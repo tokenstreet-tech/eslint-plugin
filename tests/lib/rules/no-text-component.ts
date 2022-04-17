@@ -1,34 +1,32 @@
 /**
- * @fileoverview We use our Typography component to display text, which for example preconfigures the font family and other properties. Therefore, this component should always be used instead of the text component.
+ * @fileoverview
+ * We use our Typography component to display text,
+ * which for example preconfigures the font family and other properties.
+ * Therefore, this component should always be used instead of the text component.
+ *
  * @author Daniel Reichhart <daniel@tokenstreet.com>
  */
 
-//------------------------------------------------------------------------------
-// Requirements
-//------------------------------------------------------------------------------
+/*
+ * ------------------------------------------------------------------------------
+ *  Requirements
+ * ------------------------------------------------------------------------------
+ */
+import * as eslint from 'eslint';
+
 import { noTextComponent } from '../../../lib/rules/no-text-component';
-import { RuleTester } from 'eslint';
 
-//------------------------------------------------------------------------------
-// Tests
-//------------------------------------------------------------------------------
+/*
+ * ------------------------------------------------------------------------------
+ *  Tests
+ * ------------------------------------------------------------------------------
+ */
 
-const ruleTester = new RuleTester({
-    parserOptions: {
-        ecmaVersion: 6,
-        ecmaFeatures: {
-            jsx: true,
-        },
-    },
-});
+const ruleTester = new eslint.RuleTester({ parserOptions: { ecmaFeatures: { jsx: true }, ecmaVersion: 6 } });
 ruleTester.run('no-text-components', noTextComponent, {
-    valid: [
-        { code: 'const MyComponent = () => (<Typography>Some text</Typography>)' },
-        { code: 'const MyComponent = () => (<Typography.Animated>Some text</Typography.Animated>)' },
-    ],
     invalid: [
         {
-            code: 'const MyComponent = () => (<Text>Some text</Text>)',
+            code: 'const MyComponent = () => <Text>Some text</Text>',
             errors: [
                 {
                     message:
@@ -38,7 +36,7 @@ ruleTester.run('no-text-components', noTextComponent, {
             ],
         },
         {
-            code: 'const MyComponent = () => (<Animated.Text>Some text</Animated.Text>)',
+            code: 'const MyComponent = () => <Animated.Text>Some text</Animated.Text>',
             errors: [
                 {
                     message:
@@ -47,5 +45,9 @@ ruleTester.run('no-text-components', noTextComponent, {
                 },
             ],
         },
+    ],
+    valid: [
+        'const MyComponent = () => <Typography>Some text</Typography>',
+        'const MyComponent = () => <Typography.Animated>Some text</Typography.Animated>',
     ],
 });

@@ -1,11 +1,16 @@
 root: true
 parser: '@typescript-eslint/parser'
+parserOptions:
+    project:
+        - './tsconfig.json'
 plugins:
     - '@typescript-eslint'
+    - simple-import-sort
 extends:
-    - eslint:recommended
-    - plugin:@typescript-eslint/recommended
-    - plugin:eslint-plugin/recommended
+    - eslint:all
+    - plugin:@typescript-eslint/all
+    - plugin:eslint-plugin/all
+    - prettier
 env:
     node: true
     es6: true
@@ -15,4 +20,18 @@ overrides:
       env:
           mocha: true
 rules:
-    '@typescript-eslint/no-explicit-any': 0
+    simple-import-sort/exports: 2 # Enabling the plugin simple-import-sort
+    simple-import-sort/imports: 2 # Enabling the plugin simple-import-sort
+    '@typescript-eslint/array-type':
+        - 2
+        - default: 'generic'
+    one-var: 0 # Worsens the structure
+    sort-imports: 0 # We already use the simple-import-sort plugin
+    '@typescript-eslint/prefer-readonly-parameter-types': 0 # Not always possible
+
+    '@typescript-eslint/naming-convention': 0
+    '@typescript-eslint/no-magic-numbers': 0
+    '@typescript-eslint/no-unsafe-member-access': 0
+    line-comment-position: 0
+    no-inline-comments: 0
+    no-undefined: 0

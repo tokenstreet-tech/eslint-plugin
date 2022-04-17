@@ -12,20 +12,20 @@ on:
 jobs:
     yarn_script_validation:
         name: yarn script validation
-        runs-on: [self-hosted, linux]
+        runs-on: ubuntu-latest
         strategy:
             matrix:
-                VALIDATION: ['TypeScript verification', ESLint, Test]
+                VALIDATION: [TypeScript, ESLint, Test]
                 include:
-                    - VALIDATION: 'TypeScript verification'
-                      COMMAND: 'ts:verify'
+                    - VALIDATION: TypeScript
+                      COMMAND: typescript
                     - VALIDATION: ESLint
                       COMMAND: lint
                     - VALIDATION: Test
                       COMMAND: test
         steps:
-            - uses: actions/checkout@v2
-            - uses: actions/setup-node@v2
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
               with:
                   node-version: 16
             - run: yarn install --frozen-lockfile
