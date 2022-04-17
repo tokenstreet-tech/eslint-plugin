@@ -50,7 +50,7 @@ export const noError: Rule.RuleModule = {
         return {
             // Visitor functions for different types of nodes
 
-            NewExpression(node: any) {
+            NewExpression(node: any): void {
                 const errorClasses: Array<string> = [
                     'Error',
                     'EvalError',

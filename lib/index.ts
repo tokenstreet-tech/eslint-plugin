@@ -19,13 +19,13 @@ import { noThrow } from './rules/no-throw';
  * ------------------------------------------------------------------------------
  */
 const allRules = {
-    'no-text-component': noTextComponent,
-    'no-throw': noThrow,
     'no-error': noError,
     'no-logger-error-method': noLoggerErrorMethod,
+    'no-text-component': noTextComponent,
+    'no-throw': noThrow,
 };
 
-const configureAsError = (rules: typeof allRules) => {
+const configureAsError = (rules: typeof allRules): any => {
     const result: Record<string, 2> = {};
     for (const key in rules) {
         if (Object.hasOwn(rules, key)) {
@@ -37,16 +37,16 @@ const configureAsError = (rules: typeof allRules) => {
 
 // Import all rules in lib/rules
 module.exports = {
-    rules: allRules,
     configs: {
         all: {
-            plugins: ['@tokenstreet'],
             parserOptions: {
                 ecmaFeatures: {
                     jsx: true,
                 },
             },
+            plugins: ['@tokenstreet'],
             rules: configureAsError(allRules),
         },
     },
+    rules: allRules,
 };

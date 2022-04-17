@@ -50,10 +50,10 @@ export const noThrow: Rule.RuleModule = {
         return {
             // Visitor functions for different types of nodes
 
-            ThrowStatement(node) {
+            ThrowStatement(node: any): void {
                 context.report({
-                    node,
                     message: "Unallowed use of 'throw'. Please use the 'ErrorHandler' instead.",
+                    node,
                 });
             },
         };

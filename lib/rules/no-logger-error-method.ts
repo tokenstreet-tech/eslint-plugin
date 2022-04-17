@@ -49,7 +49,7 @@ export const noLoggerErrorMethod: Rule.RuleModule = {
         return {
             // Visitor functions for different types of nodes
 
-            MemberExpression(node: any) {
+            MemberExpression(node: any): void {
                 const loggerErrorMethods: Array<string> = ['warn', 'error', 'fatal'];
                 const isLoggerErrorMethod =
                     node.object.name === 'Logger' && loggerErrorMethods.some((value) => value === node.property.name);

@@ -47,8 +47,8 @@ export const noTextComponent: Rule.RuleModule = {
         return {
             // Visitor functions for different types of nodes
 
-            JSXElement(node: any) {
-                const createReport = (foundComponent: string, replacementComponent: string) => {
+            JSXElement(node: any): void {
+                const createReport = (foundComponent: string, replacementComponent: string): any => {
                     context.report({
                         node,
                         data: {
