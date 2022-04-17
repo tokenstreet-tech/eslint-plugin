@@ -1,19 +1,20 @@
 # @tokenstreet/eslint-plugin
 
-description
+This plugin is used for tokenstreet React Native projects. Most of the rules will not make sense for other projects.
+However, this repository and the associated npm package is public to make tooling easier for us.
 
 ## Installation
 
-You'll first need to install [ESLint](https://eslint.org/):
+You'll need to install [ESLint](https://eslint.org/) and the plugin:
 
 ```sh
-npm i eslint --save-dev
+yarn add -D eslint @tokenstreet/eslint-plugin
 ```
 
-Next, install `@tokenstreet/eslint-plugin`:
+or
 
 ```sh
-npm install @tokenstreet/eslint-plugin --save-dev
+npm install eslint @tokenstreet/eslint-plugin --save-dev
 ```
 
 ## Usage
@@ -26,12 +27,23 @@ Add `@tokenstreet` to the plugins section of your `.eslintrc` configuration file
 }
 ```
 
-Then configure the rules you want to use under the rules section.
+To activate all rules, use the following configuration:
+
+```json
+{
+    "extends": ["@tokenstreet/all"]
+}
+```
+
+Alternatively, individual rules can be activated or deactivated:
 
 ```json
 {
     "rules": {
-        "@tokenstreet/no-text-component": 2
+        "@tokenstreet/no-error": 2,
+        "@tokenstreet/no-logger-error-method": 2,
+        "@tokenstreet/no-text-component": 2,
+        "@tokenstreet/no-throw": 2
     }
 }
 ```
