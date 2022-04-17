@@ -7,6 +7,7 @@
  * @author Daniel Reichhart <daniel@tokenstreet.com>
  */
 import type { Rule } from 'eslint';
+import type { DeepReadonly } from 'ts-essentials';
 
 /*
  * ------------------------------------------------------------------------------
@@ -18,7 +19,7 @@ import type { Rule } from 'eslint';
  * @type {import('eslint').Rule.RuleModule}
  */
 export const noError: Rule.RuleModule = {
-    create(context: Rule.RuleContext) {
+    create(context: DeepReadonly<Rule.RuleContext>) {
         // Variables should be defined here
 
         /*

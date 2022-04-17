@@ -8,6 +8,9 @@
  *  Requirements
  * ------------------------------------------------------------------------------
  */
+import type { Rule } from 'eslint';
+import type { DeepReadonly } from 'ts-essentials';
+
 import { noError } from './rules/no-error';
 import { noLoggerErrorMethod } from './rules/no-logger-error-method';
 import { noTextComponent } from './rules/no-text-component';
@@ -18,14 +21,14 @@ import { noThrow } from './rules/no-throw';
  *  Plugin Definition
  * ------------------------------------------------------------------------------
  */
-const allRules = {
+const allRules: Record<string, Rule.RuleModule> = {
     'no-error': noError,
     'no-logger-error-method': noLoggerErrorMethod,
     'no-text-component': noTextComponent,
     'no-throw': noThrow,
 };
 
-const configureAsError = (rules: typeof allRules): any => {
+const configureAsError = (rules: DeepReadonly<Record<string, Rule.RuleModule>>): any => {
     const result: Record<string, 2> = {};
     for (const key in rules) {
         if (Object.hasOwn(rules, key)) {
