@@ -7,6 +7,7 @@
  * @author Daniel Reichhart <daniel@tokenstreet.com>
  */
 import type { Rule } from 'eslint';
+import type { Node } from 'estree';
 import type { DeepReadonly } from 'ts-essentials';
 
 /*
@@ -39,7 +40,7 @@ export const noThrow: Rule.RuleModule = {
         return {
             // Visitor functions for different types of nodes
 
-            ThrowStatement(node: any): void {
+            ThrowStatement(node: Node): void {
                 context.report({
                     message: "Unallowed use of 'throw'. Please use the 'ErrorHandler' instead.",
                     node,

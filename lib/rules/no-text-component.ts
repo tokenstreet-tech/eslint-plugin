@@ -3,6 +3,7 @@
  * @author Daniel Reichhart <daniel@tokenstreet.com>
  */
 import type { Rule } from 'eslint';
+import type { Node } from 'estree';
 import type { DeepReadonly } from 'ts-essentials';
 
 /*
@@ -35,8 +36,8 @@ export const noTextComponent: Rule.RuleModule = {
         return {
             // Visitor functions for different types of nodes
 
-            JSXElement(node: any): void {
-                const createReport = (foundComponent: string, replacementComponent: string): any => {
+            JSXElement(node: Node): void {
+                const createReport = (foundComponent: string, replacementComponent: string): void => {
                     context.report({
                         data: { foundComponent, replacementComponent },
                         message:

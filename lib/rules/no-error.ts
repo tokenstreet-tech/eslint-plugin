@@ -7,7 +7,7 @@
  * @author Daniel Reichhart <daniel@tokenstreet.com>
  */
 import type { Rule } from 'eslint';
-import type { DeepReadonly } from 'ts-essentials';
+import type { Node } from 'estree';
 
 /*
  * ------------------------------------------------------------------------------
@@ -19,7 +19,7 @@ import type { DeepReadonly } from 'ts-essentials';
  * @type {import('eslint').Rule.RuleModule}
  */
 export const noError: Rule.RuleModule = {
-    create(context: DeepReadonly<Rule.RuleContext>) {
+    create(context: Rule.RuleContext) {
         // Variables should be defined here
 
         /*
@@ -39,7 +39,7 @@ export const noError: Rule.RuleModule = {
         return {
             // Visitor functions for different types of nodes
 
-            NewExpression(node: any): void {
+            NewExpression(node: Node): void {
                 const errorClasses: Array<string> = [
                     'Error',
                     'EvalError',

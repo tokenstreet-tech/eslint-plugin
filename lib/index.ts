@@ -9,7 +9,6 @@
  * ------------------------------------------------------------------------------
  */
 import type { Rule } from 'eslint';
-import type { DeepReadonly } from 'ts-essentials';
 
 import { noError } from './rules/no-error';
 import { noLoggerErrorMethod } from './rules/no-logger-error-method';
@@ -28,7 +27,7 @@ const allRules: Record<string, Rule.RuleModule> = {
     'no-throw': noThrow,
 };
 
-const configureAsError = (rules: DeepReadonly<Record<string, Rule.RuleModule>>): any => {
+const configureAsError = (rules: Record<string, Rule.RuleModule>): Record<string, 2> => {
     const result: Record<string, 2> = {};
     for (const key in rules) {
         if (Object.hasOwn(rules, key)) {

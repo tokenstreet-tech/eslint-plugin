@@ -6,7 +6,7 @@
  * @author Daniel Reichhart <daniel@tokenstreet.com>
  */
 import type { Rule } from 'eslint';
-import type { DeepReadonly } from 'ts-essentials';
+import type { Node } from 'estree';
 
 /*
  * ------------------------------------------------------------------------------
@@ -18,7 +18,7 @@ import type { DeepReadonly } from 'ts-essentials';
  * @type {import('eslint').Rule.RuleModule}
  */
 export const noLoggerErrorMethod: Rule.RuleModule = {
-    create(context: DeepReadonly<Rule.RuleContext>) {
+    create(context: Rule.RuleContext) {
         // Variables should be defined here
 
         /*
@@ -38,7 +38,7 @@ export const noLoggerErrorMethod: Rule.RuleModule = {
         return {
             // Visitor functions for different types of nodes
 
-            MemberExpression(node: any): void {
+            MemberExpression(node: Node): void {
                 const loggerErrorMethods: Array<string> = ['warn', 'error', 'fatal'];
                 const isLoggerErrorMethod =
                     node.object.name === 'Logger' && loggerErrorMethods.some((value) => value === node.property.name);
