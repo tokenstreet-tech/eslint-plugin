@@ -15,7 +15,6 @@ no-restricted-imports:
     importNames:
       - Text
     message: The react-native <Text /> component is not allowed. Please use the custom <Typography /> component.
-```
 
 ## Rule Details
 
