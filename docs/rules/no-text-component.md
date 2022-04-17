@@ -4,7 +4,7 @@ We use our Typography component to display text,
 which for example preconfigures the font family and other properties.
 Therefore, this component should always be used instead of the text component.
 
-The ESLint rule `no-restricted-imports:` would make this rule only partially redundant,
+The ESLint rule `no-restricted-imports` would make this rule only partially redundant,
 as it would only prohibit the `Text` component, but not `Animated.Text`.
 This is in the nature of this rule, as only the entire React Native `Animated` module can be imported.
 
