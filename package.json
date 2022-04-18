@@ -1,6 +1,6 @@
 {
     "name": "@tokenstreet/eslint-plugin",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "description": "tokenstreet React Native ESLint plugin",
     "keywords": [
         "eslint",
