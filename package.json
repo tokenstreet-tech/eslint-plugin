@@ -1,7 +1,7 @@
 {
     "name": "@tokenstreet/eslint-plugin",
     "version": "0.3.1",
-    "description": "tokenstreet ESLint plugin",
+    "description": "tokenstreet React Native ESLint plugin",
     "keywords": [
         "eslint",
         "eslintplugin",
@@ -9,8 +9,11 @@
     ],
     "author": "Daniel Reichhart <daniel@tokenstreet.com>",
     "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "source": "./lib/index.ts",
     "files": [
-        "dist/**"
+        "lib",
+        "dist"
     ],
     "scripts": {
         "build": "tsc --project tsconfig.build.json",
