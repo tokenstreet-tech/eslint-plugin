@@ -1653,9 +1653,9 @@ eslint-config-prettier@^8.5.0:
   integrity sha512-obmWKLUNCnhtQRKc+tmnYuQl0pFU1ibYJQ5BGhTVB08bHe9wC8qUeG7c08dj9XX+AuPj1YSGSQIHl1pnDHZR0Q==
 
 eslint-plugin-eslint-plugin@^4.1.0:
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-eslint-plugin/-/eslint-plugin-eslint-plugin-4.4.0.tgz#52475a3f9635de9990b0c09c201eb2601467daae"
-  integrity sha512-Y29xyomdpWybXJBVcmS9iHZwQyqYz9TVGtsxqcRa/mxhWdFexPH9lTXjT61QbsScgvh3PBTjTIpktImJLoqN6g==
+  version "4.4.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-eslint-plugin/-/eslint-plugin-eslint-plugin-4.4.1.tgz#f0b59fd96ebb3828e011fe75a65e9c49df25985a"
+  integrity sha512-e4jJGw/ezJseAPutnIasBfnO0XMdp0wPD/upBvRtzN5tqMM3xiwXtcCmDyH5NHO79ij7olxpaNGATFqS+5480g==
   dependencies:
     eslint-utils "^3.0.0"
     estraverse "^5.2.0"
